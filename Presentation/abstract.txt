@@ -1,0 +1,5 @@
+Title: Dependency Discovery via Multiscale Generalized Correlation
+
+Abstract: Determining how certain properties are related to other properties is fundamental to scientific discovery; further investigations into the geometry of the relationship and future predictions are warranted only if two properties are significantly related. To better discover any type of relationship underlying paired sample data, we introduce the multiscale generalized correlation (MGC), which combines distance correlation, the locality principle, and smoothed maximum to yield a new and superior correlation measure.
+
+It turns out that MGC is a consistent statistic for testing independence, enjoys a number of desirable theoretical properties, has the best finite-sample testing performance against a wide range of nonlinear and high-dimensional dependencies, and can be efficiently implemented and utilized in practice. In this talk, we will illustrate the main components and mechanism of MGC, exhibit its numerical advantages, and demonstrate the theoretical properties.
