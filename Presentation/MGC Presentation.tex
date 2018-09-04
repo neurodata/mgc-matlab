@@ -682,6 +682,29 @@ Conversely, the optimal scale being local, i.e., $MGC(X,Y)>Dcorr(X,Y)$, implies 
 \end{thm}
 \end{frame}
 
+\begin{frame}{\Mgc~is applicable to similarity / kernel matrix}
+%1. $MGC= Mantel=Dcorr=1$ against linear relationships; \\
+%\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ $=0$ against independence.\\
+%\pause
+\begin{thm}[Transforming kernel to distance]
+For a positive definite kernel function $k(\cdot,\cdot)$, define an induced semi-metric as 
+\begin{center}
+$d(\cdot,\cdot)=1-k(\cdot,\cdot) / \max\{k(\cdot,\cdot)\}$.
+\end{center}
+Then $d(\cdot,\cdot)$ is negative definite, and 
+\begin{center}
+$Dcorr_{d}(X,Y)=\mbox{normalized} \ HSIC_{k}(X,Y)$.
+\end{center}
+\end{thm}
+\pause
+\medskip
+For any sample kernel matrices $K_{n \times n}$, one can transform it to a dissimilarity matrix by 
+\begin{center}
+$D=J-K/\max_{i,j \in [1,\ldots,n]^2}\{K(i,j)\}$,
+\end{center}
+and apply MGC / Dcorr to the transformed dissimilarity matrices.
+\end{frame}
+
 \section{Summary}
 \begin{frame}{Summary}
 \pause

@@ -10,7 +10,8 @@
 %% @return A list contains the following output:
 %% @return statMGC is the sample MGC statistic within [-1,1];
 %% @return localCor consists of all local correlations by double matrix index;
-%% @return optimalScale the estimated optimal scale in matrix single index.
+%% @return optimalScale the estimated optimal scale in matrix single index, 
+%%         which can be changed to double indices by [k,l]=ind2sub(size(localCor),optimalScale);
 %%
 %% @export
 %%
