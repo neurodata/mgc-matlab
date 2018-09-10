@@ -16,7 +16,6 @@
 %%
 %% @export
 %%
-%% PS: the RequiredSize output does not look correct at this moment, will adjust later.
 function  [pval,stat,localCor,optimalScale,ConfidenceInterval,RequiredSize]=MGCFastTest(X,Y,ns,optionSubsample,optionMethod,alpha)
 
 % Example 1: ns=50, optionSubsample=2, optionMethod='mgc'; %fastest mgc in linear time, but has less power than original mgc
@@ -87,13 +86,15 @@ end
 if strcmpi(optionMethod,'mgc')==true
     sigma=std(statA)/sqrt(S);
     localCor=mean(localCorA,3);
-    [stat,optimalScale]=MGCSmoothing(localCor,ns,ns);
+    [stat,optimalScale]=MGCSmoothing(localCor,ns,ns,ceil(ns/sqrt(S)));
     [k,l]=ind2sub([ns,ns],optimalScale);
     k=ceil((k-1)/(ns-1)*(n-1))+1;
     l=ceil((l-1)/(ns-1)*(n-1))+1;
     optimalScale=(l-1)*n+k;
     if optionSubsample<=1 % the observed statistic uses the full data
         [~,localCor,~]=MGCSampleStat(X,Y);
+%         [~,optimalScale]=MGCSmoothing(localCor,n,n);
+%         [k,l]=ind2sub([n,n],optimalScale)
         stat=localCor(optimalScale);
         sigma=sigma/sqrt(S);
     end
@@ -107,19 +108,10 @@ else
     end
 end
 pval=1-normcdf(stat,0,sigma);
-% bmax=stat+thres*sigma;
 thres=norminv(1-alpha,0,1);
 ConfidenceInterval=[stat-thres*sigma,stat+thres*sigma];
 if stat<0
     RequiredSize=inf;
 else
-    RequiredSize=stat/sigma/thres;
-    if optionSubsample<=1
-        RequiredSize=ceil(n./RequiredSize./10)*10;
-    else
-        RequiredSize=ceil((sqrt(n)./RequiredSize).^2./10)*10;
-    end
+    RequiredSize=ceil(thres*sigma*n/stat/10)*10;
 end
-% if RequiredSize(2)<0
-%     RequiredSize(2)=inf;
-% end

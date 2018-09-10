@@ -5,20 +5,24 @@
 %% @param localCor is all local correlations;
 %% @param m is the number of rows of localCor;
 %% @param n is the number of columns of localCor;
+%% @param thres is the number of entries for R to be significant;
 %%
 %% @return A list contains the following output:
 %% @return statMGC is the sample MGC statistic within [-1,1];
 %% @return optimalScale the estimated optimal scale in matrix single index.
 %% @return R is a binary matrix of size m by n indicating the significant region.
 %%
-function [statMGC, optimalScale,R]=MGCSmoothing(localCor,m,n)
+function [statMGC, optimalScale,R]=MGCSmoothing(localCor,m,n,thres)
+if nargin<4
+    thres=2*min(m,n);
+end
 R=Thresholding(localCor,m,n); % find a connected region of significant local correlations
 
 statMGC=localCor(end); % default sample mgc to local corr at maximal scale
 optimalScale=m*n; % default the optimal scale to maximal scale
 if (norm(R,'fro')~=0)
     % tau=0; % number of adjacent scales to smooth with
-    if sum(sum(R))>=2*min(m,n) % proceed only when the region area is sufficiently large
+    if sum(sum(R))>=thres % proceed only when the region area is sufficiently large
         tmp=max(localCor(R==1));
         [k,l]=find((localCor>=tmp)&(R==1)); % find all scales within R that maximize the local correlation
         if tmp >= statMGC
