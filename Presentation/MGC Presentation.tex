@@ -92,7 +92,7 @@
 }
 
 \title[MGC]{\fontfamily{qtm} \bfseries Dependency Discovery via\\
-Multiscale Generalized Correlation} 
+Multiscale Graph Correlation} 
 \bigskip
 \bigskip
 \author[C. Shen]{\large\textcolor{UniTitle}{\textit{Cencheng Shen}}} % Your name
@@ -237,7 +237,7 @@ Existing method has pros and cons with respect to each point. \\
 
 \pause
 \medskip
-To that end, we propose the \textbf{multiscale generalized correlation} in [\textit{Shen et al.(2017a)}]\cite{ShenEtAl2016}.
+To that end, we propose the \textbf{multiscale graph correlation} in [\textit{Shen et al.(2017a)}]\cite{ShenEtAl2016}.
 \end{frame}
 
 \setbeamertemplate{section in toc}{\inserttocsectionnumber.~\inserttocsection}
@@ -377,6 +377,136 @@ It is a critical step for both the finite-sample performance and certain theoret
 %MGC shares the same intrinsic idea as in nonlinear embedding, random forest, deep learning.
 %\end{frame}
 
+\section{Theory}
+\begin{frame}{Basic Properties of Sample \Mgc}
+\begin{thm}[Well-behaved Correlation Measure]
+\pause
+1. Boundedness: $c(\mathcal{X}_{n},\mathcal{Y}_{n}) \in [-1,1]$.\\
+\pause
+\medskip
+2. Symmetric: $c(\mathcal{X}_{n},\mathcal{Y}_{n}) =c(\mathcal{Y}_{n},\mathcal{X}_{n})$.\\
+\pause
+\medskip
+3. Invariant: $c(\mathcal{X}_{n},\mathcal{Y}_{n})=c(\{\phi(x_{i})\},\{\delta(y_{i})\})$ for any linear transformation $\phi,\delta$ (i.e., rotation, scaling, translation, reflection).\\
+\pause
+\medskip
+4. 1-Linear: $c(\mathcal{X}_{n},\mathcal{Y}_{n})=1$ under linear relationships.\\
+\end{thm}
+\pause
+\bigskip
+\begin{thm}[Consistency]
+\pause
+5. 0-Indep: $c(\mathcal{X}_{n},\mathcal{Y}_{n}) \stackrel{n \rightarrow \infty}{\rightarrow}0$ if and only if independence.\\
+\pause
+\medskip
+6. Consistency: At any type 1 error level $\alpha$, testing power $\beta(c(\mathcal{X}_{n},\mathcal{Y}_{n})) \stackrel{n \rightarrow \infty}{\rightarrow} 1$ against any dependent $F_{\mbx \mby}$.\\
+\end{thm}
+\end{frame}
+
+\begin{frame}{Defining Population \Mgc}
+%\begin{defi*}
+Suppose $(\mbx,\mby), (\mbx',\mby'), (\mbx'',\mby''), (\mbx''',\mby''')$ are \emph{iid} as $F_{XY}$. 
+\pause
+Let $\mb{I}(\cdot)$ be the indicator function, define two random variables
+\begin{align*}
+\mb{I}_{\mbx,\mbx'}^{\rho_{k}} &=\mb{I}(Prob\{B(\mbx,\|\mbx'-\mbx\|)\} \leq \rho_{k})  \\
+\mb{I}_{\mby',\mby}^{\rho_{l}} &=\mb{I}(Prob\{B(\mby',\|\mby-\mby'\|)\} \leq \rho_{l})
+\end{align*}
+for $\rho_{k},\rho_{l} \in [0,1]$.
+\pause
+Further define
+\begin{align*}
+d^{\rho_{k}}_{\mbx} &=(\| \mbx-\mbx' \| - \|\mbx-\mbx''\|) \mb{I}_{\mbx,\mbx'}^{\rho_{k}} \\
+d^{\rho_{l}}_{\mby'} &=(\| \mby'-\mby \| - \|\mby'-\mby'''\|) \mb{I}_{\mby',\mby}^{\rho_{l}}
+\end{align*}
+\pause
+The population local covariance can be defined as
+\begin{align*}
+%\label{eq:dcov2}
+Dcov^{\rho_{k}, \rho_{l}}(\mbx,\mby) = E(d^{\rho_{k}}_{\mbx} d^{\rho_{l}}_{\mby'}) - E(d^{\rho_{k}}_{\mbx}) E(d^{\rho_{l}}_{\mby'}).
+\end{align*}
+\pause
+Normalizing and taking a smoothed maximum yield population \Mgc.
+%\end{defi*}
+\end{frame}
+
+\begin{frame}{Sample to Population}
+\pause
+The population version can be equivalently defined via characteristic functions of $F_{XY}$, e.g.,
+\pause 
+\begin{align*}
+Dcov^{\rho_{k}=1, \rho_{l}=1}(\mbx,\mby) = \int_{t,s} |g_{XY}(t,s)-g_{X}(t)g_{Y}(s)|^2 dw(t,s),
+\end{align*}
+see [\textit{Shen et al.(2017b)}]\cite{ShenEtAl2018}.\\
+
+\pause
+\begin{thm}[Convergence, Mean and Variance]
+\pause
+1. 0-Indep: $c(X,Y) =0$ if and only if independence.\\
+\pause
+\medskip
+2. Convergence: $c(\mathcal{X}_{n},\mathcal{Y}_{n}) \stackrel{n \rightarrow \infty}{\rightarrow} c(X,Y)$.\\
+\pause
+\medskip
+3. Almost Unbiased: $E(c(\mathcal{X}_{n},\mathcal{Y}_{n})) =c(X,Y)+\mathcal{O}(1/n)$.\\
+\pause
+\medskip
+4. Diminishing Variance: $Var(c(\mathcal{X}_{n},\mathcal{Y}_{n})) =\mathcal{O}(1/n)$.\\
+\end{thm}
+\pause
+\medskip
+The last three properties also hold for any local correlation by $(\rho_{k},\rho_{l})=(\frac{k-1}{n-1},\frac{l-1}{n-1})$.
+%Same boundedness, symmetric, invariant, 1-linear properties as sample version.\\
+\end{frame}
+
+\begin{frame}{Theoretical Advantages of \Mgc}
+%1. $MGC= Mantel=Dcorr=1$ against linear relationships; \\
+%\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ $=0$ against independence.\\
+%\pause
+\begin{thm}[Advantages of Population \Mgc~vs Mantel and Dcorr]
+\pause
+1. There exists dependent $F_{XY}$ such that $Mantel=0$, thus not universally consistent.\\
+\pause
+\medskip
+2. For any dependent $F_{XY}$, $MGC(X,Y) \geq Dcorr(X,Y)$. \\
+\pause
+\medskip
+3. There exists dependent $F_{XY}$ such that $MGC(X,Y)>Dcorr(X,Y)$.\\
+\end{thm}
+\pause
+As \Mgc~and Dcorr share similar variance and same mean under the null, the mean advantage in the alternative is translated to the testing power. 
+\pause
+\begin{thm}[Optimal Scale of \Mgc~Implies Geometry Structure]
+\pause
+If the relationship is linear (or with independent noise), the global scale is always optimal and $MGC(X,Y)=Dcorr(X,Y)$.\\
+\pause
+\medskip
+Conversely, the optimal scale being local, i.e., $MGC(X,Y)>Dcorr(X,Y)$, implies a non-linear relationship.
+\end{thm}
+\end{frame}
+
+\begin{frame}{\Mgc~is applicable to similarity / kernel matrix}
+%1. $MGC= Mantel=Dcorr=1$ against linear relationships; \\
+%\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ $=0$ against independence.\\
+%\pause
+\begin{thm}[Transforming kernel to distance]
+For a positive definite kernel function $k(\cdot,\cdot)$, define an induced semi-metric as 
+\begin{center}
+$d(\cdot,\cdot)=1-k(\cdot,\cdot) / \max\{k(\cdot,\cdot)\}$.
+\end{center}
+Then $d(\cdot,\cdot)$ is negative definite, and 
+\begin{center}
+$Dcorr_{d}(X,Y)=\mbox{normalized} \ HSIC_{k}(X,Y)$.
+\end{center}
+\end{thm}
+\pause
+\medskip
+For any sample kernel matrices $K_{n \times n}$, one can transform it to a dissimilarity matrix by 
+\begin{center}
+$D=J-K/\max_{i,j \in [1,\ldots,n]^2}\{K(i,j)\}$,
+\end{center}
+and apply MGC / Dcorr to the transformed dissimilarity matrices.
+\end{frame}
 
 \section{Experiments}
 \begin{frame}{Visualizations of $20$ Simulation Settings}
@@ -572,137 +702,6 @@ HHG Features & \textbf{2}  & 1  \\
 \pause
 \medskip
 %Actually they are also the top three choices in \Mgc. And if we just rank the peptides by p-value from each method, neurogranin is always the top choice!
-\end{frame}
-
-\section{Theory}
-\begin{frame}{Basic Properties of Sample \Mgc}
-\begin{thm}[Well-behaved Correlation Measure]
-\pause
-1. Boundedness: $c(\mathcal{X}_{n},\mathcal{Y}_{n}) \in [-1,1]$.\\
-\pause
-\medskip
-2. Symmetric: $c(\mathcal{X}_{n},\mathcal{Y}_{n}) =c(\mathcal{Y}_{n},\mathcal{X}_{n})$.\\
-\pause
-\medskip
-3. Invariant: $c(\mathcal{X}_{n},\mathcal{Y}_{n})=c(\{\phi(x_{i})\},\{\delta(y_{i})\})$ for any linear transformation $\phi,\delta$ (i.e., rotation, scaling, translation, reflection).\\
-\pause
-\medskip
-4. 1-Linear: $c(\mathcal{X}_{n},\mathcal{Y}_{n})=1$ under linear relationships.\\
-\end{thm}
-\pause
-\bigskip
-\begin{thm}[Consistency]
-\pause
-5. 0-Indep: $c(\mathcal{X}_{n},\mathcal{Y}_{n}) \stackrel{n \rightarrow \infty}{\rightarrow}0$ if and only if independence.\\
-\pause
-\medskip
-6. Consistency: At any type 1 error level $\alpha$, testing power $\beta(c(\mathcal{X}_{n},\mathcal{Y}_{n})) \stackrel{n \rightarrow \infty}{\rightarrow} 1$ against any dependent $F_{\mbx \mby}$.\\
-\end{thm}
-\end{frame}
-
-\begin{frame}{Defining Population \Mgc}
-%\begin{defi*}
-Suppose $(\mbx,\mby), (\mbx',\mby'), (\mbx'',\mby''), (\mbx''',\mby''')$ are \emph{iid} as $F_{XY}$. 
-\pause
-Let $\mb{I}(\cdot)$ be the indicator function, define two random variables
-\begin{align*}
-\mb{I}_{\mbx,\mbx'}^{\rho_{k}} &=\mb{I}(Prob\{B(\mbx,\|\mbx'-\mbx\|)\} \leq \rho_{k})  \\
-\mb{I}_{\mby',\mby}^{\rho_{l}} &=\mb{I}(Prob\{B(\mby',\|\mby-\mby'\|)\} \leq \rho_{l})
-\end{align*}
-for $\rho_{k},\rho_{l} \in [0,1]$.
-\pause
-Further define
-\begin{align*}
-d^{\rho_{k}}_{\mbx} &=(\| \mbx-\mbx' \| - \|\mbx-\mbx''\|) \mb{I}_{\mbx,\mbx'}^{\rho_{k}} \\
-d^{\rho_{l}}_{\mby'} &=(\| \mby'-\mby \| - \|\mby'-\mby'''\|) \mb{I}_{\mby',\mby}^{\rho_{l}}
-\end{align*}
-\pause
-The population local covariance can be defined as
-\begin{align*}
-%\label{eq:dcov2}
-Dcov^{\rho_{k}, \rho_{l}}(\mbx,\mby) = E(d^{\rho_{k}}_{\mbx} d^{\rho_{l}}_{\mby'}) - E(d^{\rho_{k}}_{\mbx}) E(d^{\rho_{l}}_{\mby'}).
-\end{align*}
-\pause
-Normalizing and taking a smoothed maximum yield population \Mgc.
-%\end{defi*}
-\end{frame}
-
-\begin{frame}{Sample to Population}
-\pause
-The population version can be equivalently defined via characteristic functions of $F_{XY}$, e.g.,
-\pause 
-\begin{align*}
-Dcov^{\rho_{k}=1, \rho_{l}=1}(\mbx,\mby) = \int_{t,s} |g_{XY}(t,s)-g_{X}(t)g_{Y}(s)|^2 dw(t,s),
-\end{align*}
-see [\textit{Shen et al.(2017b)}]\cite{ShenEtAl2018}.\\
-
-\pause
-\begin{thm}[Convergence, Mean and Variance]
-\pause
-1. 0-Indep: $c(X,Y) =0$ if and only if independence.\\
-\pause
-\medskip
-2. Convergence: $c(\mathcal{X}_{n},\mathcal{Y}_{n}) \stackrel{n \rightarrow \infty}{\rightarrow} c(X,Y)$.\\
-\pause
-\medskip
-3. Almost Unbiased: $E(c(\mathcal{X}_{n},\mathcal{Y}_{n})) =c(X,Y)+\mathcal{O}(1/n)$.\\
-\pause
-\medskip
-4. Diminishing Variance: $Var(c(\mathcal{X}_{n},\mathcal{Y}_{n})) =\mathcal{O}(1/n)$.\\
-\end{thm}
-\pause
-\medskip
-The last three properties also hold for any local correlation by $(\rho_{k},\rho_{l})=(\frac{k-1}{n-1},\frac{l-1}{n-1})$.
-%Same boundedness, symmetric, invariant, 1-linear properties as sample version.\\
-\end{frame}
-
-\begin{frame}{Theoretical Advantages of \Mgc}
-%1. $MGC= Mantel=Dcorr=1$ against linear relationships; \\
-%\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ $=0$ against independence.\\
-%\pause
-\begin{thm}[Advantages of Population \Mgc~vs Mantel and Dcorr]
-\pause
-1. There exists dependent $F_{XY}$ such that $Mantel=0$, thus not universally consistent.\\
-\pause
-\medskip
-2. For any dependent $F_{XY}$, $MGC(X,Y) \geq Dcorr(X,Y)$. \\
-\pause
-\medskip
-3. There exists dependent $F_{XY}$ such that $MGC(X,Y)>Dcorr(X,Y)$.\\
-\end{thm}
-\pause
-As \Mgc~and Dcorr share similar variance and same mean under the null, the mean advantage in the alternative is translated to the testing power. 
-\pause
-\begin{thm}[Optimal Scale of \Mgc~Implies Geometry Structure]
-\pause
-If the relationship is linear (or with independent noise), the global scale is always optimal and $MGC(X,Y)=Dcorr(X,Y)$.\\
-\pause
-\medskip
-Conversely, the optimal scale being local, i.e., $MGC(X,Y)>Dcorr(X,Y)$, implies a non-linear relationship.
-\end{thm}
-\end{frame}
-
-\begin{frame}{\Mgc~is applicable to similarity / kernel matrix}
-%1. $MGC= Mantel=Dcorr=1$ against linear relationships; \\
-%\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ $=0$ against independence.\\
-%\pause
-\begin{thm}[Transforming kernel to distance]
-For a positive definite kernel function $k(\cdot,\cdot)$, define an induced semi-metric as 
-\begin{center}
-$d(\cdot,\cdot)=1-k(\cdot,\cdot) / \max\{k(\cdot,\cdot)\}$.
-\end{center}
-Then $d(\cdot,\cdot)$ is negative definite, and 
-\begin{center}
-$Dcorr_{d}(X,Y)=\mbox{normalized} \ HSIC_{k}(X,Y)$.
-\end{center}
-\end{thm}
-\pause
-\medskip
-For any sample kernel matrices $K_{n \times n}$, one can transform it to a dissimilarity matrix by 
-\begin{center}
-$D=J-K/\max_{i,j \in [1,\ldots,n]^2}\{K(i,j)\}$,
-\end{center}
-and apply MGC / Dcorr to the transformed dissimilarity matrices.
 \end{frame}
 
 \section{Summary}
@@ -1057,7 +1056,7 @@ MGC shares the same intrinsic idea as in nonlinear embedding, random forest, mul
 ``Discovering and Deciphering Relationships Across Disparate Data Modalities," \textit{https://arxiv.org/abs/1609.05148}.\\
 \bigskip
 2. \textcolor{UniOrange}{C. Shen}, C. E. Priebe, and J. T. Vogelstein, ``From distance correlation to the
-multiscale generalized correlation," \textit{https://arxiv.org/abs/1710.09768}.\\
+multiscale graph correlation," \textit{https://arxiv.org/abs/1710.09768}.\\
 \bigskip
 3. Y. Lee, \textcolor{UniOrange}{C. Shen}, and J. T. Vogelstein, ``Network dependence testing via diffusion
 maps and distance-based correlations," \textit{https://arxiv.org/abs/1703.10136}.\\
@@ -1072,7 +1071,7 @@ subgraph estimation via vertex screening," \textit{https://arxiv.org/abs/1801.07
 5. \textcolor{UniOrange}{C. Shen} and J. T. Vogelstein, ``Characterizing dependency structure by the MGC image," \textit{in prep}.\\
 \bigskip
 6. \textcolor{UniOrange}{C. Shen}, Y. Lee, C. E. Priebe, and J. T. Vogelstein, ``K-sample testing via
-multiscale generalized correlation," \textit{in prep}.
+multiscale graph correlation," \textit{in prep}.
 }\fi
 %\bibliographystyle{ieeetr}
 %
