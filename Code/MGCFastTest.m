@@ -45,58 +45,62 @@ if n<4*ns
     ns=floor(n/4);
     S=4;
 end
-% if rep>0
-%     statN=zeros(1,S*rep); % the empirical null statistic if permutation is used.
-%     localCorN=zeros(nn,nn,S*rep); % the empirical null statistic if permutation is used.
-% end
 statA=zeros(1,S); % the observed statistics by subsampling
-localCorA=zeros(ns,ns,S); % the local correlations by subsampling
+
+% auxiliary variables and additional processing for MGC subsampling
 localCor=0;
 optimalScale=0;
-% add trivial noise to break any ties.
 if strcmpi(optionMethod,'mgc')==true
+    % add trivial noise to break any ties.
     X=X+(1e-10)*unifrnd(0,1,n,size(X,2));
-    Y=Y+(1e-10)*unifrnd(0,1,n,size(Y,2));
+    Y=Y+(1e-10)*unifrnd(0,1,n,size(Y,2)); 
+    localCorA=zeros(ns,ns,S); % the local correlations by subsampling
 end
 
+% subsampling computation
 for s=1:S
     sub=ns*(s-1)+1:ns*s;
     Xs=X(sub,:);
     Ys=Y(sub,:);
     if strcmpi(optionMethod,'mgc')==true
+        %localCorA(:,:,s)=MGCLocalCor(Xs,Ys);
         [statA(s),localCorA(:,:,s)]=MGCSampleStat(Xs,Ys);
     else
         statA(s)=DCor(Xs,Ys,optionMethod);
     end
-    %     if rep>0
-    %         for r=1:rep
-    %             % Use random permutations on the second data set
-    %             per=randperm(nn);
-    %             YsN=Ys(per,:);
-    %             if strcmpi(optionMethod,'mgc')==true
-    %                 tmp=MGCSampleStat(Xs,YsN);
-    %             else
-    %                 tmp=DCor(Xs,YsN,optionMethod);
-    %             end
-    %             statN((s-1)*rep+r)=tmp;
-    %         end
-    %     end
 end
 
 if strcmpi(optionMethod,'mgc')==true
-    sigma=std(statA)/sqrt(S);
     localCor=mean(localCorA,3);
-    [stat,optimalScale]=MGCSmoothing(localCor,ns,ns,ceil(ns/sqrt(S)));
+    %sigma=max(max(std(localCorA,[],3)/sqrt(S)));
+    sigma=std(statA)/sqrt(S);
+    [stat,optimalScale]=MGCSmoothing(localCor,ns,ns);
     [k,l]=ind2sub([ns,ns],optimalScale);
     k=ceil((k-1)/(ns-1)*(n-1))+1;
     l=ceil((l-1)/(ns-1)*(n-1))+1;
     optimalScale=(l-1)*n+k;
     if optionSubsample<=1 % the observed statistic uses the full data
-        [~,localCor,~]=MGCSampleStat(X,Y);
-%         [~,optimalScale]=MGCSmoothing(localCor,n,n);
-%         [k,l]=ind2sub([n,n],optimalScale)
+%         tmp=localCor;
+        [~,localCor,optimalScale2]=MGCSampleStat(X,Y);
         stat=localCor(optimalScale);
+        optimalScale=optimalScale2;
+        % cross validate the optimal scale using the subsampled local correlation
+%         [k,l]=ind2sub([n,n],optimalScale); 
+%         k=ceil((k-1)/(n-1)*(ns-1))+1;
+%         l=ceil((l-1)/(n-1)*(ns-1))+1;
+%         if mean(mean(tmp>tmp(k,l)))>2/ns || tmp(k,l) < max(tmp(end),0)
+%             optimalScale=n^2;
+%         end
+%         stat=localCor(optimalScale);
         sigma=sigma/sqrt(S);
+    else
+%         stat=mean(statA);
+%         optimalScale=find(localCor>stat,1,'last');
+%         %[stat,optimalScale]=MGCSmoothing(localCor,ns,ns);
+%         [k,l]=ind2sub([ns,ns],optimalScale);
+%         k=ceil((k-1)/(ns-1)*(n-1))+1;
+%         l=ceil((l-1)/(ns-1)*(n-1))+1;
+%         optimalScale=(l-1)*n+k;
     end
 else
     sigma=std(statA)/sqrt(S);

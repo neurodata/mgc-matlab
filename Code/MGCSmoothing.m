@@ -12,11 +12,14 @@
 %% @return optimalScale the estimated optimal scale in matrix single index.
 %% @return R is a binary matrix of size m by n indicating the significant region.
 %%
-function [statMGC, optimalScale,R]=MGCSmoothing(localCor,m,n,thres)
+function [statMGC, optimalScale,R]=MGCSmoothing(localCor,m,n,sz,thres)
 if nargin<4
-    thres=2*min(m,n);
+    sz=min(m,n)-1;
 end
-R=Thresholding(localCor,m,n); % find a connected region of significant local correlations
+if nargin<5
+    thres=min(m,n);
+end
+R=Thresholding(localCor,m,n,sz); % find a connected region of significant local correlations
 
 statMGC=localCor(end); % default sample mgc to local corr at maximal scale
 optimalScale=m*n; % default the optimal scale to maximal scale
@@ -56,12 +59,11 @@ end
 %%
 %% @return R is a binary matrix of size m and n, with 1's indicating the significant region.
 %%
-function R=Thresholding(localCor,m,n)
+function R=Thresholding(localCor,m,n,sz)
 thres=max(localCor(end),0);
-sz=max(m,n)-1;
 opt=2; 
 if opt==1 % A threshold is estimated based on normal distribution approximation from Szekely2013
-    prt=1-0.01; % percentile to consider as significant
+    prt=1-0.02/sz; % percentile to consider as significant
     %thres=sqrt(sz*(sz-3)/2-1); % normal approximation, which is equivalent to beta approximation for n larger than 10
     %thres=icdf('normal',prt,0,1)/thres;
     thres=sz*(sz-3)/4-1/2; % beta approximation
@@ -71,7 +73,7 @@ end
 if opt==2
     thres=localCor;
     thres=thres(thres<0); % all negative correlations
-    thres=3*norm(thres,'fro')/sqrt(length(thres)); % 5 times the standard deviation of negative correlations
+    thres=5*norm(thres,'fro')/sqrt(length(thres)); % 5 times the standard deviation of negative correlations
     thres=max(thres,localCor(end)); % Use the maximal of paratemetric and non-parametric thresholds
 end
 
