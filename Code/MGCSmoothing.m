@@ -61,7 +61,7 @@ end
 %%
 function R=Thresholding(localCor,m,n,sz)
 thres=max(localCor(end),0);
-opt=2; 
+opt=1; 
 if opt==1 % A threshold is estimated based on normal distribution approximation from Szekely2013
     prt=1-0.02/sz; % percentile to consider as significant
     %thres=sqrt(sz*(sz-3)/2-1); % normal approximation, which is equivalent to beta approximation for n larger than 10

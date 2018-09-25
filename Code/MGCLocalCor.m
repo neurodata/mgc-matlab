@@ -28,8 +28,8 @@ Y=DCorInput(Y,optionMetric);
 [varY]=LocalCov(B,B',RY,RY'); % compute local variances for second data
 varX=diag(varX);
 varY=diag(varY);
-varX=varX(end);
-varY=varY(end);
+% varX=varX(end);
+% varY=varY(end);
 corr=cov./real(sqrt(varX*varY'));
 corr(corr>1)=1; % avoid computational issue that may cause a few local corr to be negligably larger than 1
 
