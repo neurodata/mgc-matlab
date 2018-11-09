@@ -82,7 +82,11 @@ if strcmpi(optionMethod,'mgc')==true
     if optionSubsample<=1 % the observed statistic uses the full data
 %         tmp=localCor;
         [~,localCor,optimalScale2]=MGCSampleStat(X,Y);
-        stat=localCor(optimalScale);
+        if optimalScale>0
+            stat=localCor(optimalScale);
+        else
+            stat=localCor(end);
+        end
         optimalScale=optimalScale2;
         % cross validate the optimal scale using the subsampled local correlation
 %         [k,l]=ind2sub([n,n],optimalScale); 

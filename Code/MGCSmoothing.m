@@ -22,7 +22,7 @@ end
 R=Thresholding(localCor,m,n,sz); % find a connected region of significant local correlations
 
 statMGC=localCor(end); % default sample mgc to local corr at maximal scale
-optimalScale=m*n; % default the optimal scale to maximal scale
+optimalScale=0; % default the optimal scale to 0
 if (norm(R,'fro')~=0)
     % tau=0; % number of adjacent scales to smooth with
     if sum(sum(R))>=thres % proceed only when the region area is sufficiently large
