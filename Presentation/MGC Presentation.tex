@@ -263,13 +263,13 @@ To that end, we propose the \textbf{multiscale graph correlation} in [\textit{Sh
          \node (kaela)[right=0.8cm of source]{\begin{tabular}{@{}c}Computing \\ Distances \\ \& Centering: \\ $A, B \in \mathbb{R}^{n \times n}$\end{tabular}};
 				\draw[outpt](source)--(kaela);
 				\pause
-				\node (dc)[below=0.8cm of kaela]{\begin{tabular}{@{}c} $Dcov =$ \\ $\sum\limits_{i\neq j}^{n} A_{ij}B_{ij}$ \end{tabular}};
+				\node (dc)[below=0.8cm of kaela]{\begin{tabular}{@{}c} $Dcov =$ \\ $\sum\limits_{i\neq j}^{n} A_{ij}B_{ji}$ \end{tabular}};
 				\draw[outpt2](kaela)--(dc);
 				\pause          
             \node (accessfile) [right=0.9cm of kaela] {\begin{tabular}{@{}c}Incorporating \\ Locality: \\ $\{A^{k}, B^{l} \in \mathbb{R}^{n \times n}$, \\ for $k,l \in [n]\}$ \end{tabular}};
             \draw[outpt](kaela)--(accessfile);
 						\pause
-						\node (dc2)[below=0.8cm of accessfile]{\begin{tabular}{@{}c} $Dcov^{k,l} =$ \\ $\sum\limits_{i\neq j}^{n} A_{ij}^{k}B_{ij}^{l}-\sum\limits_{i\neq j}^{n} A_{ij}^{k} \sum\limits_{i\neq j}^{n} B_{ij}^{l}$ \end{tabular}};
+						\node (dc2)[below=0.8cm of accessfile]{\begin{tabular}{@{}c} $Dcov^{k,l} =$ \\ $\sum\limits_{i\neq j}^{n} A_{ij}^{k}B_{ji}^{l}-\sum\limits_{i\neq j}^{n} A_{ij}^{k} \sum\limits_{i\neq j}^{n} B_{ij}^{l}$ \end{tabular}};
 				\draw[outpt2](accessfile)--(dc2);
             % Draw background
             \begin{pgfonlayer}{background}
@@ -285,7 +285,7 @@ To that end, we propose the \textbf{multiscale graph correlation} in [\textit{Sh
             \node (screen)[above right=1.2cm of accessfile]{All Local \\ Correlations \\ $\{Dcorr^{k,l}\}$\\$\in [-1,1]^{n \times n}$};
 						\draw[outpt](accessfile)--(screen.west);
 						\pause   
-            \node (braille)[right =0.8cm of accessfile]{Smoothed \\ Maximum: \\ MGC $\in [-1,1]$, \\and Optimal \\ Scale $(k^*,l^*)$};
+            \node (braille)[right =0.8cm of accessfile]{Smoothed \\ Maximum: \\ $c^{*} \in [-1,1]$, \\and Optimal \\ Scale $(k^*,l^*)$};
 						\draw[outpt](accessfile)--(braille);
 						\pause   
             \node (enlarge)[below =0.8cm of braille]{P-value by \\ Permutation \\ Test};
@@ -393,7 +393,7 @@ There are a maximum of $n^2$ different local correlations. At $k=l=n$, $dCorr^{k
 %\end{itemize}
 %\end{frame}
 
-\begin{frame}{Smoothed Maximum}
+\begin{frame}{Smoothed Maximum $c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n})$}
 One would like to use the optimal local correlation for testing.\\
 \pause
 \medskip
@@ -416,8 +416,10 @@ Pick a threshold $\tau \geq 0$ (we choose by an approximate null distribution of
 \end{align*}
 \pause
 and calculate the largest connected component $R$ of the set.
+
 \pause
-If there are sufficiently many elements in $R$ $(>2n)$, take the maximum correlation within $R$ as \Mgc, 
+\medskip
+If there are sufficiently many elements in $R$ $(>2n)$, take the maximum correlation within $R$ as \Mgc~statistic $c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n})$, 
 \pause
 and set the neighborhood pair as the optimal scale $(k^*,l^*)$.
 %\pause
@@ -426,7 +428,11 @@ and set the neighborhood pair as the optimal scale $(k^*,l^*)$.
 \end{frame}
 
 \begin{frame}{Permutation Test}
-To get a p-value by \Mgc~for any given data, we utilize the permutation test: randomly permute index the second data set for $r$ times, compute the permuted \Mgc~statistic for each, and compute the percentage that the original \Mgc~is no larger than the permuted \Mgc~statistic, and take it as the p-value.
+To get a p-value by \Mgc~for any given data, we utilize the permutation test: randomly permute index of the second data set for $r$ times, compute the permuted \Mgc~statistic $c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n}^{\pi})$ for each permutation $\pi$, and estimate 
+\begin{align*}
+Prob(c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n})>c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n}^{\pi}))
+\end{align*}
+as the p-value.
 \pause
 \medskip
 
@@ -434,10 +440,15 @@ This is a standard nonparametric testing procedure employed by Mantel, Dcorr, HH
 \end{frame}
 
 \begin{frame}{Computation Complexity}
-Distance computation takes $\mathcal{O}(n^2 \max(p,q))$, centering takes $\mathcal{O}(n^2)$, ranking takes $\mathcal{O}(n^2 log(n))$, \textbf{all local correlations can be iteratively computed in $\mathcal{O}(n^2)$}, and the smoothing step takes $\mathcal{O}(n^2)$.
+\begin{itemize}
+\item Distance computation takes $\mathcal{O}(n^2 \max(p,q))$
+\item Centering takes $\mathcal{O}(n^2)$
+\item Ranking takes $\mathcal{O}(n^2 log(n))$
+\item \textbf{All local correlations can be iteratively computed in $\mathcal{O}(n^2)$}
+\item The smoothed maximum takes $\mathcal{O}(n^2)$
+\end{itemize}
 
 \pause
-\medskip
 Overall, \Mgc~can be computed in $\mathcal{O}(n^2 \max(p,q,log(n)))$, which is comparable to DCorr, HHG, and HSIC. 
 
 \pause
@@ -497,32 +508,32 @@ There are a number of ways to speed up the method for big data: faster implement
 \begin{frame}{Basic Properties of Sample \Mgc}
 \begin{thm}[Well-behaved Correlation Measure]
 \pause
-1. Boundedness: $c(\mathcal{X}_{n},\mathcal{Y}_{n}) \in [-1,1]$.\\
+1. Boundedness: $c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n}) \in [-1,1]$.\\
 \pause
 \medskip
-2. Symmetric: $c(\mathcal{X}_{n},\mathcal{Y}_{n}) =c(\mathcal{Y}_{n},\mathcal{X}_{n})$.\\
+2. Symmetric: $c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n}) =c^{*}(\mathcal{Y}_{n},\mathcal{X}_{n})$.\\
 \pause
 \medskip
-3. Non-negative Variance: $c(\mathcal{X}_{n},\mathcal{X}_{n}) \geq 0$ with equality if and only if $F_{X}$ is non-degenerate.\\
+3. Non-negative Variance: $c^{*}(\mathcal{X}_{n},\mathcal{X}_{n}) \geq 0$ with equality if and only if $F_{X}$ is non-degenerate.\\
 \pause
 \medskip
-4. Invariant: $c(\mathcal{X}_{n},\mathcal{Y}_{n})=c(\{\phi(x_{i})\},\{\delta(y_{i})\})$ for any distance-preserving transformations $\phi,\delta$ (i.e., rotation, scaling, translation, reflection).\\
+4. Invariant: $c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n})$ is invariant to any distance-preserving transformations $\phi,\delta$ applied to $\mathcal{X}_{n}$ and $\mathcal{Y}_{n}$ each (i.e., rotation, scaling, translation, reflection).\\
 \pause
 \medskip
-5. 1-Linear: $c(\mathcal{X}_{n},\mathcal{Y}_{n})=1$ if and only if $F_{X}$ is non-degenerate and $(X, u Y)$ are dependent via an isometry for some non-zero constant $u$.\\
+5. 1-Linear: $c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n})=1$ if and only if $F_{X}$ is non-degenerate and $(X, u Y)$ are dependent via an isometry for some non-zero constant $u$.\\
 \end{thm}
 \end{frame}
 
 \begin{frame}{Consistency of Sample \Mgc}
 \begin{thm}[Consistency]
 \pause
-1. 0-Indep: $c(\mathcal{X}_{n},\mathcal{Y}_{n}) \stackrel{n \rightarrow \infty}{\rightarrow}0$ if and only if independence.\\
+1. 0-Indep: $c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n}) \stackrel{n \rightarrow \infty}{\rightarrow}0$ if and only if independence.\\
 \pause
 \medskip
 2. Valid Test: Under the permutation test, Sample \Mgc~is a valid test, i.e., it controls the type 1 error level $\alpha$.\\
 \pause
 \medskip
-3. Consistency: At any type 1 error level $\alpha$, testing power $\beta(c(\mathcal{X}_{n},\mathcal{Y}_{n})) \stackrel{n \rightarrow \infty}{\rightarrow} 1$ against any dependent $F_{\mbx \mby}$.\\
+3. Consistency: At any type 1 error level $\alpha$, testing power $\beta(c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n})) \stackrel{n \rightarrow \infty}{\rightarrow} 1$ against any dependent $F_{\mbx \mby}$.\\
 \end{thm}
 \end{frame}
 
@@ -556,15 +567,16 @@ Normalizing and taking a smoothed maximum yield population \Mgc.
 \begin{frame}{Sample to Population}
 \pause
 Alternatively, the population version can be equivalently defined via characteristic functions of $F_{XY}$:
-\pause 
 \begin{align*}
 Dcov^{\rho_{k}=1, \rho_{l}=1}(\mbx,\mby) = \int_{t,s} |g_{XY}(t,s)-g_{X}(t)g_{Y}(s)|^2 dw(t,s)
 \end{align*}
-with respect to a non-negative weight function $w(t,s)$ on $(t,s) \in \mathbb{R}^{p} \times \mathbb{R}^{q}$. The weight function is defined as:
+with respect to a non-negative weight function $w(t,s)$ on $(t,s) \in \mathbb{R}^{p} \times \mathbb{R}^{q}$. 
+\pause 
+The weight function is defined as:
 \begin{align*}
-		w(t,s) &=  (c_{p}c_{q} |t|^{1+p}|s|^{1+q})^{-1},
+		w(t,s) &=  (d_{p}d_{q} |t|^{1+p}|s|^{1+q})^{-1},
 \end{align*}
-where $c_{p}=\frac{\pi^{(1+p)/2}}{\Gamma((1+p)/2)}$ is a non-negative constant tied to the dimensionality $p$, and $\Gamma(\cdot)$ is the complete Gamma function.\\
+where $d_{p}=\frac{\pi^{(1+p)/2}}{\Gamma((1+p)/2)}$ is a non-negative constant tied to the dimensionality $p$, and $\Gamma(\cdot)$ is the complete Gamma function.\\
 \pause
 \medskip
 Can be similarly adapted to the local correlation.
@@ -573,16 +585,16 @@ Can be similarly adapted to the local correlation.
 \begin{frame}{Theoretical Advantages of \Mgc}
 \begin{thm}[Convergence, Mean and Variance]
 \pause
-1. 0-Indep: $c(X,Y) =0$ if and only if independence.\\
+1. 0-Indep: $c^{*}(X,Y) =0$ if and only if independence.\\
 \pause
 \medskip
-2. Convergence: $c(\mathcal{X}_{n},\mathcal{Y}_{n}) \stackrel{n \rightarrow \infty}{\rightarrow} c(X,Y)$.\\
+2. Convergence: $c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n}) \stackrel{n \rightarrow \infty}{\rightarrow} c^{*}(X,Y)$.\\
 \pause
 \medskip
-3. Almost Unbiased: $E(c(\mathcal{X}_{n},\mathcal{Y}_{n})) =c(X,Y)+\mathcal{O}(1/n)$.\\
+3. Almost Unbiased: $E(c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n})) =c^{*}(X,Y)+\mathcal{O}(1/n)$.\\
 \pause
 \medskip
-4. Diminishing Variance: $Var(c(\mathcal{X}_{n},\mathcal{Y}_{n})) =\mathcal{O}(1/n)$.\\
+4. Diminishing Variance: $Var(c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n})) =\mathcal{O}(1/n)$.\\
 \end{thm}
 \pause
 \medskip
@@ -599,20 +611,20 @@ The last three properties also hold for any local correlation by $(\rho_{k},\rho
 1. There exists dependent $F_{XY}$ such that $Mantel=0$, thus not universally consistent.\\
 \pause
 \medskip
-2. For any dependent $F_{XY}$, $MGC(X,Y) \geq Dcorr(X,Y)$. \\
+2. For any dependent $F_{XY}$, $c^{*}(X,Y) \geq Dcorr(X,Y)$. \\
 \pause
 \medskip
-3. There exists dependent $F_{XY}$ such that $MGC(X,Y)>Dcorr(X,Y)$.\\
+3. There exists dependent $F_{XY}$ such that $c^{*}(X,Y)>Dcorr(X,Y)$.\\
 \end{thm}
 \pause
 As \Mgc~and Dcorr share similar variance and same mean under the null, the mean advantage in the alternative is translated to the testing power. 
 \pause
 \begin{thm}[Optimal Scale of \Mgc~Implies Geometry Structure]
 \pause
-If the relationship is linear (or with independent noise), the global scale is always optimal and $MGC(X,Y)=Dcorr(X,Y)$.\\
+If the relationship is linear (or with independent noise), the global scale is always optimal and $c^{*}(X,Y)=Dcorr(X,Y)$.\\
 \pause
 \medskip
-Conversely, the optimal scale being local, i.e., $MGC(X,Y)>Dcorr(X,Y)$, implies a non-linear relationship.
+Conversely, the optimal scale being local, i.e., $c^{*}(X,Y)>Dcorr(X,Y)$, implies a non-linear relationship.
 \end{thm}
 \end{frame}
 
@@ -1188,7 +1200,7 @@ multiscale graph correlation," Journal of the American Statistical Association, 
 maps and distance-based correlations," \textit{https://arxiv.org/abs/1703.10136}.\\
 \bigskip
 4. S. Wang, \textcolor{UniOrange}{C. Shen}, A. Badea, C. E. Priebe, and J. T. Vogelstein, ``Signal
-subgraph estimation via vertex screening," \textit{https://arxiv.org/abs/1801.07683}.\\
+subgraph estimation via iterative vertex screening," \textit{https://arxiv.org/abs/1801.07683}.\\
 \bigskip
 5. \textcolor{UniOrange}{C. Shen} and J. T. Vogelstein, ``The Exact Equivalence of Distance and Kernel Methods for Hypothesis Testing," \textit{https://arxiv.org/abs/1806.05514}.\\
 \if1\blind
