@@ -779,23 +779,15 @@ MIC & 120  & 180 & n/a & n/a \\
 \end{tabular}
 \end{frame}
 
-\begin{frame}{A Proteomics Experiment: Identify Biomarker}
+\begin{frame}{Signal Subgraph via MGC}
 \pause
-The blood samples of $95$ individuals are collected. Pancreatic ($10$), ovarian ($24$), colorectal cancer ($28$), and healthy controls ($33$). \\
-
-\pause
+We consider predicting the site and sex based on functional magnetic resonance image (fMRI) graphs. Two datasets used are SWU4 and HNU1, which have $467$ and $300$ samples respectively. \\
 \medskip
-The protein and peptide abundance levels are measured for each person for $318$ peptides / proteins. 
-\pause
-The target is to find potential biomarkers that best distinguish between pancreatic and non-pancreatic.\\
 
-\pause
+Each sample is an fMRI scan registered to the MNI152 template using the Desikan altas, which has $70$ regions. \\
 \medskip
-For each feature, we compute \Mgc~and the p-values between the abundance level and the label vector ($n=95, p=q=1$).\\
 
-\pause
-\medskip
-Adjusted for multiple testing, \Mgc~uniquely revealed one particular protein, neurogranin, which is exclusively expressed in brain tissue among normal tissues and has not been linked with any other cancer type. \\
+We used an iterative screening method (similar to backward selection) via MGC from [\textit{Wang et al.(2018)}] to extract signal subgraph (in this case brain regions) that are most dependent with sites and sex, and also run leave-one-out cross validation with $K$-Nearest Neighbor classifier to verify the results.
 %Subsequent literature searches reveal that neurogranin is a potentially valuable biomarker because it is exclusively expressed in brain tissue among normal tissues and has not been linked with any other cancer type.
 
 %\pause
@@ -812,34 +804,21 @@ Adjusted for multiple testing, \Mgc~uniquely revealed one particular protein, ne
 %\end{figure}
 %\end{frame}
 
-\begin{frame}{Comparison and Verification}
-\pause
-HSIC identifies two peptides, HHG identifies three peptides, and other methods do not identify any peptide as significant. However, there exists strong evidence that the other two peptides are upregulated in other cancers.\\
+\begin{frame}
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=3.5in]{brain.png}
+	\label{fig:study}
+\end{figure}
+\end{frame}
 
-\pause
-\medskip
-If we compare kNN (K=3) leave-one-subject-error of these peptides: 
-\medskip
-\begin{tabular}{|l||c|c|}
-\hline
-Peptides & False Positives & True Positives   \\
-\hline
-%  Oracle \Mgc  & \textbf{50}  & 60 & \textbf{70} & \textbf{135} \\
-% \hline
- \textcolor{UniOrange}{Neurogranin (MGC)}  & \textbf{2}  & \textbf{5} \\
-%\hline
- %Tropomyosin alpha-3 chain isoform 4 & 3  & 2 \\
-%\hline 
- %Fibrinogen-like protein 1 precursor & 4  & 0 \\
-\hline
-HSIC Features & 4  & \textbf{5}  \\
-\hline
-HHG Features & \textbf{2}  & 1  \\
-\hline
-\end{tabular}\\
-\pause
-\medskip
-%Actually they are also the top three choices in \Mgc. And if we just rank the peptides by p-value from each method, neurogranin is always the top choice!
+\begin{frame}
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=3.5in]{batch_sex_cor_error.png}
+	\label{fig:study}
+	\caption{A total of $22$ regions are recognized for site difference, which maximizes the MGC statistic and almost minimizes the leave-one-out cross validation error. It is no longer the case for sex, for which neither the MGC nor the error are too significant for any size of subgraph.}
+\end{figure}
 \end{frame}
 
 \section{Summary}
