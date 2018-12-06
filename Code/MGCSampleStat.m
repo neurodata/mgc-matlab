@@ -30,6 +30,6 @@ if m==1 || n==1
     R=1;
 else
     % find the maximal within the significant region, return optimal scale and a connectec region of local correlations R
-    [statMGC,optimalScale, R]=MGCSmoothing(localCor,m,n); 
+    [statMGC,optimalScale, R]=MGCSmoothing(localCor,m,n);
 end
 
