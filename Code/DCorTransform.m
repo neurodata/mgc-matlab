@@ -66,7 +66,7 @@ A=X-EX;
 
 % The diagonal entries are excluded for unbiased and mgc centering, but not
 % excluded for biased and simple centering.
-if strcmpi(optionCenter,'biased')==0 || strcmpi(optionCenter,'simple')==0
+if strcmpi(optionCenter,'biased')==0 && strcmpi(optionCenter,'simple')==0
     for j=1:n
         A(j,j)=0;
     end
