@@ -514,13 +514,10 @@ There are a number of ways to speed up the method for big data: faster implement
 2. Symmetric: $c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n}) =c^{*}(\mathcal{Y}_{n},\mathcal{X}_{n})$.\\
 \pause
 \medskip
-3. Non-negative Variance: $c^{*}(\mathcal{X}_{n},\mathcal{X}_{n}) \geq 0$ with equality if and only if $F_{X}$ is non-degenerate.\\
+3. Invariant: $c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n})$ is invariant to any distance-preserving transformations $\phi,\delta$ applied to $\mathcal{X}_{n}$ and $\mathcal{Y}_{n}$ each (i.e., rotation, scaling, translation, reflection).\\
 \pause
 \medskip
-4. Invariant: $c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n})$ is invariant to any distance-preserving transformations $\phi,\delta$ applied to $\mathcal{X}_{n}$ and $\mathcal{Y}_{n}$ each (i.e., rotation, scaling, translation, reflection).\\
-\pause
-\medskip
-5. 1-Linear: $c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n})=1$ if and only if $F_{X}$ is non-degenerate and $(X, u Y)$ are dependent via an isometry for some non-zero constant $u$.\\
+4. 1-Linear: $c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n})=1$ if and only if $F_{X}$ is non-degenerate and $(X, u Y)$ are dependent via an isometry for some non-zero constant $u$.\\
 \end{thm}
 \end{frame}
 
@@ -606,15 +603,12 @@ The last three properties also hold for any local correlation by $(\rho_{k},\rho
 %1. $MGC= Mantel=Dcorr=1$ against linear relationships; \\
 %\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ $=0$ against independence.\\
 %\pause
-\begin{thm}[Advantages of Population \Mgc~vs Mantel and Dcorr]
+\begin{thm}[Advantages of Population \Mgc~vs Dcorr]
 \pause
-1. There exists dependent $F_{XY}$ such that $Mantel=0$, thus not universally consistent.\\
-\pause
-\medskip
-2. For any dependent $F_{XY}$, $c^{*}(X,Y) \geq Dcorr(X,Y)$. \\
+1. For any dependent $F_{XY}$, $c^{*}(X,Y) \geq Dcorr(X,Y)$. \\
 \pause
 \medskip
-3. There exists dependent $F_{XY}$ such that $c^{*}(X,Y)>Dcorr(X,Y)$.\\
+2. There exists dependent $F_{XY}$ such that $c^{*}(X,Y)>Dcorr(X,Y)$.\\
 \end{thm}
 \pause
 As \Mgc~and Dcorr share similar variance and same mean under the null, the mean advantage in the alternative is translated to the testing power. 

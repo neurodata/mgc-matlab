@@ -25,7 +25,7 @@ statMGC=localCor(end); % default sample mgc to local corr at maximal scale
 optimalScale=m*n; % default the optimal scale to global scale
 if (norm(R,'fro')~=0)
     % tau=0; % number of adjacent scales to smooth with
-    if sum(sum(R))>=thres % proceed only when the region area is sufficiently large
+    if sum(sum(R))>=ceil(0.02*max(m,n))*thres % proceed only when the region area is sufficiently large
         tmp=max(localCor(R==1));
         [k,l]=find((localCor>=tmp)&(R==1)); % find all scales within R that maximize the local correlation
         if tmp >= statMGC
