@@ -17,12 +17,12 @@ if nargin<4
     sz=min(m,n)-1;
 end
 if nargin<5
-    thres=min(m,n);
+    thres=2*min(m,n);
 end
 R=Thresholding(localCor,m,n,sz); % find a connected region of significant local correlations
 
 statMGC=localCor(end); % default sample mgc to local corr at maximal scale
-optimalScale=0; % default the optimal scale to 0
+optimalScale=m*n; % default the optimal scale to global scale
 if (norm(R,'fro')~=0)
     % tau=0; % number of adjacent scales to smooth with
     if sum(sum(R))>=ceil(0.02*max(m,n))*thres % proceed only when the region area is sufficiently large
@@ -30,11 +30,7 @@ if (norm(R,'fro')~=0)
         [k,l]=find((localCor>=tmp)&(R==1)); % find all scales within R that maximize the local correlation
         if tmp >= statMGC
             statMGC=tmp;
-            optimalScale=(l-1)*m+k; % take the scale of maximal stat and change to single index
-            if length(optimalScale)>1
-                [~,tmpInd]=max(k.*l);
-                optimalScale=optimalScale(tmpInd);
-            end
+            optimalScale=(k-1)*m+l; % take the scale of maximal stat and change to single index
         end
         %         ln=ceil(tau); % number of adjacent rows to check
         %         km=ceil(tau); % number of adjacent columns to check
@@ -72,13 +68,13 @@ if opt==1 % A threshold is estimated based on normal distribution approximation 
     %thres=icdf('normal',prt,0,1)/thres;
     thres=sz*(sz-3)/4-1/2; % beta approximation
     thres=(betainv(prt,thres,thres))*2-1;
-    %thres=max(thres,localCor(end)); % take the maximal of threshold and local correlation at the maximal scale
+    thres=max(thres,localCor(end)); % take the maximal of threshold and local correlation at the maximal scale
 end
 if opt==2
     thres=localCor;
     thres=thres(thres<0); % all negative correlations
     thres=5*norm(thres,'fro')/sqrt(length(thres)); % 5 times the standard deviation of negative correlations
-    %thres=max(thres,localCor(end)); % Use the maximal of paratemetric and non-parametric thresholds
+    thres=max(thres,localCor(end)); % Use the maximal of paratemetric and non-parametric thresholds
 end
 
 % Find the largest connected component of significant correlations
