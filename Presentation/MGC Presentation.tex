@@ -101,14 +101,11 @@ Multiscale Graph Correlation}
 \bigskip
 \bigskip
 \bigskip
-\textit{Collaborators: Joshua T. Vogelstein, Carey E. Priebe, Shangsi Wang, Youjin Lee, Mauro Maggioni, Qing Wang, Alex Badea.\\
+\textit{Collaborators: Carey E. Priebe, Joshua T. Vogelstein, Shangsi Wang, Ronak Mehta, Eric Bridgeford, Sambit Panda, Junhao Xiong, Youjin Lee, Qing Wang, Alex Badea, Xu Ting, Mauro Maggioni.\\
 \medskip
 Acknowledgment: NSF DMS, DARPA SIMPLEX.\\
 \medskip
-\medskip
-\medskip
-R package available in CRAN and \url{https://github.com/neurodata/MGC/}\\
-Matlab code available in \url{https://github.com/neurodata/mgc-matlab}}}
+\medskip}}
 \date{\footnotesize\color{UniTitle}\footnotesize\textit{}} % Date, can be changed to a custom date
 \tikzset{
    invisible/.style={opacity=0},
@@ -177,7 +174,11 @@ anything & anything else \\
 
 \pause
 \medskip
-A test is universally consistent if its power converges to $1$ as $n \rightarrow \infty$ against any dependent $F_{XY}$.
+A dependence / correlation measure is any statistic that can be used to test the above hypothesis.
+
+\pause
+\medskip
+We desire a universally consistent test via some dependence measure, i.e., the testing power converges to $1$ as $n \rightarrow \infty$ against any dependent $F_{XY}$.
 
 \pause
 \medskip
@@ -259,17 +260,19 @@ To that end, we propose the \textbf{multiscale graph correlation} in [\textit{Sh
             >=stealth,
          every node/.append style={align=left}]
 				\node (source) at (0,0){$(\mathcal{X}_{n},\mathcal{Y}_{n})$};
+				\node (source2)at (3,3){$d(\cdot,\cdot): \mathbb{R}^{p+q} \times \mathbb{R}^{p+q} \rightarrow \mathbb{R}$};
 				\pause
          \node (kaela)[right=0.8cm of source]{\begin{tabular}{@{}c}Computing \\ Distances \\ \& Centering: \\ $A, B \in \mathbb{R}^{n \times n}$\end{tabular}};
 				\draw[outpt](source)--(kaela);
+				\draw[outpt](source2)--(kaela);
 				\pause
-				\node (dc)[below=0.8cm of kaela]{\begin{tabular}{@{}c} $Dcov =$ \\ $\sum\limits_{i\neq j}^{n} A_{ij}B_{ji}$ \end{tabular}};
+				\node (dc)[below=0.8cm of kaela]{\begin{tabular}{@{}c} $Dcov =$ \\ $\sum\limits_{i,j=1}^{n} A_{ij}B_{ji}$ \end{tabular}};
 				\draw[outpt2](kaela)--(dc);
 				\pause          
             \node (accessfile) [right=0.9cm of kaela] {\begin{tabular}{@{}c}Incorporating \\ Locality: \\ $\{A^{k}, B^{l} \in \mathbb{R}^{n \times n}$, \\ for $k,l \in [n]\}$ \end{tabular}};
             \draw[outpt](kaela)--(accessfile);
 						\pause
-						\node (dc2)[below=0.8cm of accessfile]{\begin{tabular}{@{}c} $Dcov^{k,l} =$ \\ $\sum\limits_{i\neq j}^{n} A_{ij}^{k}B_{ji}^{l}-\sum\limits_{i\neq j}^{n} A_{ij}^{k} \sum\limits_{i\neq j}^{n} B_{ij}^{l}$ \end{tabular}};
+						\node (dc2)[below=0.8cm of accessfile]{\begin{tabular}{@{}c} $Dcov^{k,l} =$ \\ $\sum\limits_{i,j=1}^{n} A_{ij}^{k}B_{ji}^{l}-\sum\limits_{i,j=1}^{n} A_{ij}^{k} \sum\limits_{i,j=1}^{n} B_{ij}^{l}$ \end{tabular}};
 				\draw[outpt2](accessfile)--(dc2);
             % Draw background
             \begin{pgfonlayer}{background}
@@ -304,12 +307,12 @@ To that end, we propose the \textbf{multiscale graph correlation} in [\textit{Sh
 \end{frame}
 
 \begin{frame}{Computing Distance and Centering}
-\textbf{Input:} $\mathcal{X}_{n}=[x_{1},\ldots,x_{n}]$ as the data matrix with each column representing one sample observation, and similarly $\mathcal{Y}_{n}$. \\
+\textbf{Input:} $\mathcal{X}_{n}=[x_{1},\ldots,x_{n}]$ as the data matrix with each column representing one sample observation, and similarly $\mathcal{Y}_{n}$. A distance or kernel function $d(\cdot,\cdot): \mathbb{R}^{p+q} \times \mathbb{R}^{p+q} \rightarrow \mathbb{R}$, by default the Euclidean distance.\\
 \pause
 \medskip
 \textbf{Distance Computation: } Let $\tilde{A}$ be the $n \times n$ Euclidean distance matrices of $\mathcal{X}_{n}$:
 \begin{align*}
-\tilde{A}_{ij}=\|x_{i}-x_{j}\|_{2},
+\tilde{A}_{ij}=d(x_i,x_j)=\|x_{i}-x_{j}\|_{2},
 \end{align*}
 and similarly $\tilde{B}$ from $\mathcal{Y}_{n}$.\\
 
@@ -446,18 +449,19 @@ This is a standard nonparametric testing procedure employed by Mantel, Dcorr, HH
 \item Ranking takes $\mathcal{O}(n^2 log(n))$
 \item \textbf{All local correlations can be iteratively computed in $\mathcal{O}(n^2)$}
 \item The smoothed maximum takes $\mathcal{O}(n^2)$
+\item Storage requirement is $\mathcal{O}(n^2)$
 \end{itemize}
 
 \pause
-Overall, \Mgc~can be computed in $\mathcal{O}(n^2 \max(p,q,log(n)))$, which is comparable to DCorr, HHG, and HSIC. 
+Overall, \Mgc~can be computed in $\mathcal{O}(n^2 \max(p,q,\log n))$. Without the ranking process, the global correlation (Dcorr) waives the $\log n$ part and takes $\mathcal{O}(n^2 \max(p,q))$.
 
 \pause
 \medskip
-The permutation test takes $\mathcal{O}(n^2 \max(r,p,q,log(n)))$ for $r$ random permutations.
+The permutation test takes $\mathcal{O}(n^2 \max(r,p,q,\log n))$ for $r$ random permutations.
 \pause
 \medskip
 
-There are a number of ways to speed up the method for big data: faster implementation when $p=q=1$, null distribution approximation by subsampling and spectral embedding.
+On a standard PC with Matlab, testing $n=1000$ takes about $1$ minutes.
 \end{frame}
 
 \begin{frame}{Examples}
@@ -490,6 +494,28 @@ There are a number of ways to speed up the method for big data: faster implement
    }
 \end{frame}
 
+\begin{frame}{\Mgc~is applicable to similarity / kernel matrix}
+%1. $MGC= Mantel=Dcorr=1$ against linear relationships; \\
+%\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ $=0$ against independence.\\
+%\pause
+\begin{thm}[Transforming kernel to distance]
+Given any kernel function $k(\cdot,\cdot)$, define an induced semi-metric as 
+\begin{center}
+$d(i,j)=1-k(i,j) / \max_{i,j=1,\ldots,n}\{k(i,j)\}$.
+\end{center}
+%Then $d(\cdot,\cdot)$ is of strong negative type, and the resulting MGC is universally consistent.
+\end{thm}
+\pause
+\medskip
+Namely, given a sample kernel matrices $K_{n \times n}$, one can compute the induced distance matrix by 
+\begin{center}
+$D=J-K/\max_{i,j \in [1,\ldots,n]^2}\{K(i,j)\}$,
+\end{center}
+and apply MGC or other distance-based correlation to the induced distance matrices.\\
+\pause
+\medskip
+The kernel correlation HSIC is equivalent to distance correlation. 
+\end{frame}
 %\begin{frame}{Advantages of \Mgc}
 %3. *The local correlations provide an encoding of the dependency structure. 
 
@@ -532,6 +558,9 @@ There are a number of ways to speed up the method for big data: faster implement
 \medskip
 3. Consistency: At any type 1 error level $\alpha$, testing power $\beta(c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n})) \stackrel{n \rightarrow \infty}{\rightarrow} 1$ against any dependent $F_{\mbx \mby}$.\\
 \end{thm}
+\pause
+\medskip
+The distance correlation also shares the same properties.
 \end{frame}
 
 \begin{frame}{Defining Population \Mgc}
@@ -540,21 +569,21 @@ Suppose $(\mbx,\mby), (\mbx',\mby'), (\mbx'',\mby''), (\mbx''',\mby''')$ are \em
 \pause
 Let $\mb{I}(\cdot)$ be the indicator function, define two random variables
 \begin{align*}
-\mb{I}_{\mbx,\mbx'}^{\rho_{k}} &=\mb{I}(\int_{B(\mbx,\|\mbx'-\mbx\|)} dF_\mbx(u) \leq \rho_k)  \\
-\mb{I}_{\mby',\mby}^{\rho_{l}} &=\mb{I}(\int_{B(\mby',\|\mby'-\mby\|)} dF_\mby(u) \leq \rho_l)
+\mb{I}_{\mbx,\mbx'}^{\rho_{k}} &=\mb{I}(\int_{B(\mbx,d(\mbx',\mbx))} dF_\mbx(u) \leq \rho_k)  \\
+\mb{I}_{\mby',\mby}^{\rho_{l}} &=\mb{I}(\int_{B(\mby',d(\mby'-\mby))} dF_\mby(u) \leq \rho_l)
 \end{align*}
 for $\rho_{k},\rho_{l} \in [0,1]$.
 \pause
 Further define
 \begin{align*}
-d^{\rho_{k}}_{\mbx} &=(\| \mbx-\mbx' \| - \|\mbx-\mbx''\|) \mb{I}_{\mbx,\mbx'}^{\rho_{k}} \\
-d^{\rho_{l}}_{\mby'} &=(\| \mby'-\mby \| - \|\mby'-\mby'''\|) \mb{I}_{\mby',\mby}^{\rho_{l}}
+g^{\rho_{k}}_{\mbx} &=(d(\mbx,\mbx') - d(\mbx,\mbx'')) \mb{I}_{\mbx,\mbx'}^{\rho_{k}} \\
+g^{\rho_{l}}_{\mby'} &=(d(\mby',\mby) - d(\mby',\mby''')) \mb{I}_{\mby',\mby}^{\rho_{l}}
 \end{align*}
 \pause
 The population local covariance can be defined as
 \begin{align*}
 %\label{eq:dcov2}
-Dcov^{\rho_{k}, \rho_{l}}(\mbx,\mby) = E(d^{\rho_{k}}_{\mbx} d^{\rho_{l}}_{\mby'}) - E(d^{\rho_{k}}_{\mbx}) E(d^{\rho_{l}}_{\mby'}).
+Dcov^{\rho_{k}, \rho_{l}}(\mbx,\mby) = E(g^{\rho_{k}}_{\mbx} g^{\rho_{l}}_{\mby'}) - E(g^{\rho_{k}}_{\mbx}) E(g^{\rho_{l}}_{\mby'}).
 \end{align*}
 \pause
 Normalizing and taking a smoothed maximum yield population \Mgc.
@@ -563,26 +592,35 @@ Normalizing and taking a smoothed maximum yield population \Mgc.
 
 \begin{frame}{Sample to Population}
 \pause
-Alternatively, the population version can be equivalently defined via characteristic functions of $F_{XY}$:
-\begin{align*}
-Dcov^{\rho_{k}=1, \rho_{l}=1}(\mbx,\mby) = \int_{t,s} |g_{XY}(t,s)-g_{X}(t)g_{Y}(s)|^2 dw(t,s)
-\end{align*}
-with respect to a non-negative weight function $w(t,s)$ on $(t,s) \in \mathbb{R}^{p} \times \mathbb{R}^{q}$. 
+Under the Euclidean distance, the population version can be equivalently defined via an integral of characteristic functions of $F_{XY}-F_{X}F_{Y}$ with respect to a non-negative weight function $w(t,s)$.
 \pause 
-The weight function is defined as:
-\begin{align*}
-		w(t,s) &=  (d_{p}d_{q} |t|^{1+p}|s|^{1+q})^{-1},
-\end{align*}
-where $d_{p}=\frac{\pi^{(1+p)/2}}{\Gamma((1+p)/2)}$ is a non-negative constant tied to the dimensionality $p$, and $\Gamma(\cdot)$ is the complete Gamma function.\\
+\medskip
+
+For general metric or kernel function $d(\cdot,\cdot)$, the population version can also be defined as the integral of $d(X,X')d(Y,Y')$ with respect to $(F_{XY}-F_{X}F_{Y})(F_{X'Y'}-F_{X'}F_{Y'})$.
 \pause
 \medskip
-Can be similarly adapted to the local correlation.
+
+When the metric is of strong negative type or the kernel is characteristic, $c^{*}(X,Y)=0$ if and only if independence. For arbitrary metric or kernel, the if direction is still true but not the only if direction.
+%Under Euclidean distance, the population version can be equivalently defined via characteristic functions of $F_{XY}$:
+%\begin{align*}
+%Dcov^{\rho_{k}=1, \rho_{l}=1}(\mbx,\mby) = \int_{t,s} |g_{XY}(t,s)-g_{X}(t)g_{Y}(s)|^2 dw(t,s)
+%\end{align*}
+%with respect to a non-negative weight function $w(t,s)$ on $(t,s) \in \mathbb{R}^{p} \times \mathbb{R}^{q}$. 
+%\pause 
+%The weight function is defined as:
+%\begin{align*}
+%		w(t,s) &=  (d_{p}d_{q} |t|^{1+p}|s|^{1+q})^{-1},
+%\end{align*}
+%where $d_{p}=\frac{\pi^{(1+p)/2}}{\Gamma((1+p)/2)}$ is a non-negative constant tied to the dimensionality $p$, and $\Gamma(\cdot)$ is the complete Gamma function.\\
+%\pause
+%\medskip
+%Can be similarly adapted to the local correlation.
 \end{frame}
 
 \begin{frame}{Theoretical Advantages of \Mgc}
 \begin{thm}[Convergence, Mean and Variance]
 \pause
-1. 0-Indep: $c^{*}(X,Y) =0$ if and only if independence.\\
+1. 0-Indep: When the metric is of strong negative type or the kernel is characteristic, $c^{*}(X,Y) =0$ if and only if independence.\\
 \pause
 \medskip
 2. Convergence: $c^{*}(\mathcal{X}_{n},\mathcal{Y}_{n}) \stackrel{n \rightarrow \infty}{\rightarrow} c^{*}(X,Y)$.\\
@@ -595,7 +633,7 @@ Can be similarly adapted to the local correlation.
 \end{thm}
 \pause
 \medskip
-The last three properties also hold for any local correlation by $(\rho_{k},\rho_{l})=(\frac{k-1}{n-1},\frac{l-1}{n-1})$.
+The last three properties also hold for any local correlation by $(\rho_{k},\rho_{l})=(\frac{k-1}{n-1},\frac{l-1}{n-1})$, as well as the distance correlation, i.e., $k=l=n$.
 %Same boundedness, symmetric, invariant, 1-linear properties as sample version.\\
 \end{frame}
 
@@ -611,7 +649,7 @@ The last three properties also hold for any local correlation by $(\rho_{k},\rho
 2. There exists dependent $F_{XY}$ such that $c^{*}(X,Y)>Dcorr(X,Y)$.\\
 \end{thm}
 \pause
-As \Mgc~and Dcorr share similar variance and same mean under the null, the mean advantage in the alternative is translated to the testing power. 
+As \Mgc~and Dcorr share similar variance and same mean under the null, the first moment advantage in the alternative is translated to the testing power. 
 \pause
 \begin{thm}[Optimal Scale of \Mgc~Implies Geometry Structure]
 \pause
@@ -620,24 +658,6 @@ If the relationship is linear (or with independent noise), the global scale is a
 \medskip
 Conversely, the optimal scale being local, i.e., $c^{*}(X,Y)>Dcorr(X,Y)$, implies a non-linear relationship.
 \end{thm}
-\end{frame}
-
-\begin{frame}{\Mgc~is applicable to similarity / kernel matrix}
-%1. $MGC= Mantel=Dcorr=1$ against linear relationships; \\
-%\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ $=0$ against independence.\\
-%\pause
-\begin{thm}[Transforming kernel to distance]
-Given any characteristic kernel function $k(\cdot,\cdot)$, define an induced semi-metric as 
-\begin{center}
-$d(\cdot,\cdot)=1-k(\cdot,\cdot) / \max\{k(\cdot,\cdot)\}$.
-\end{center}
-Then $d(\cdot,\cdot)$ is of strong negative type, and the resulting MGC is universally consistent.
-\end{thm}
-Namely, given a sample kernel matrices $K_{n \times n}$, one can compute the induced distance matrix by 
-\begin{center}
-$D=J-K/\max_{i,j \in [1,\ldots,n]^2}\{K(i,j)\}$,
-\end{center}
-and apply MGC to the induced distance matrices.
 \end{frame}
 
 \section{Simulations and Experiments}
@@ -651,15 +671,8 @@ and apply MGC to the induced distance matrices.
 \end{figure}
 \end{frame}
 
-\begin{frame}{Evaluation Criterion}
-\begin{itemize}[<+->]
-\item Power is the probability of rejecting the null when the alternative is true.
-\item Required sample size $N_{\alpha,\beta}(c)$ to achieve a power of $\beta$ at type 1 error level $\alpha$ using a statistic $c$. 
-%\item We desire $N_{\alpha,\beta}(c) / N_{\alpha,\beta}(\Mgc)$ to be bounded below by $1$ for all $c$, $F_{\mbx \mby}$, $\alpha$, and $\beta$. 
-\end{itemize}
-\end{frame}
-
 \begin{frame}{Testing Power: Linear vs Nonlinear}
+Power is the probability of rejecting the null when the alternative is true.
 \pause
 \begin{figure}[!ht]
 \centering
@@ -728,7 +741,7 @@ and apply MGC to the induced distance matrices.
 
 \begin{frame}{Required Sample Size}
 \pause
-When $noise=1$, $p=q=1$, the required sample size $N_{\alpha=0.05,\beta=0.85}(c)$: \\
+Required sample size $N_{\alpha,\beta}(c)$ to achieve a power of $\beta$ at type 1 error level $\alpha$ using a statistic $c$. We compute the required sample size $N_{\alpha=0.05,\beta=0.85}(c)$: \\
 \medskip
 \pause
 in linear relationship, $40$ for all three methods; \\
@@ -773,15 +786,15 @@ MIC & 120  & 180 & n/a & n/a \\
 \end{tabular}
 \end{frame}
 
-\begin{frame}{Signal Subgraph via MGC}
+\begin{frame}{Extracting Signal Brain Region from fMRI images}
 \pause
 We consider predicting the site and sex based on functional magnetic resonance image (fMRI) graphs. Two datasets used are SWU4 and HNU1, which have $467$ and $300$ samples respectively. \\
 \medskip
 
-Each sample is an fMRI scan registered to the MNI152 template using the Desikan altas, which has $70$ regions. \\
+Each sample is an fMRI scan registered to the MNI152 template using the Desikan altas, which has $70$ regions. They are transformed to graph structure using the NeuroData’s MRI Graphs pipeline \footnote{\url{https://github.com/neurodata/ndmg}}.
 \medskip
 
-We used an iterative screening method (similar to backward selection) via MGC from [\textit{Wang et al.(2018)}] to extract signal subgraph (in this case brain regions) that are most dependent with sites and sex, and also run leave-one-out cross validation with $K$-Nearest Neighbor classifier to verify the results.
+We compute the dependency measure between each brain region and sex. Rank the brain region via magnitude of the measure, and include all significant ($p-val<0.05$) brain regions. Then run leave-one-out cross validation with $K$-Nearest Neighbor classifier to verify the results. Repeat it for the site property.
 %Subsequent literature searches reveal that neurogranin is a potentially valuable biomarker because it is exclusively expressed in brain tissue among normal tissues and has not been linked with any other cancer type.
 
 %\pause
@@ -797,6 +810,14 @@ We used an iterative screening method (similar to backward selection) via MGC fr
 %\label{f:realA}
 %\end{figure}
 %\end{frame}
+
+\begin{frame}
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=4.3in]{brain0.jpg}
+	\label{fig:study}
+\end{figure}
+\end{frame}
 
 \begin{frame}
 \begin{figure}[!ht]
@@ -818,18 +839,16 @@ We used an iterative screening method (similar to backward selection) via MGC fr
 \section{Summary}
 \begin{frame}{Summary}
 \pause
-\Mgc~builds on distance correlation, the locality principle, and taking a smoothed maximum.
+Distance-based correlation is valid and universally consistent for testing independence. \Mgc~utilizes the locality principle to achieve better testing power and sheds insight into the dependency structure.
 
 \pause
 \medskip
 \begin{itemize}[<+->]
-\item Proper distance transformation ensures the universal consistency.
-\item Compute all local correlations iteratively.
-\item Identify the optimal local correlation without inflating the sample bias.
+\item Using a proper distance or kernel ensures the universal consistency.
+\item Compute all local correlations iteratively and finds the optimal one can help the testing power when sample size is limited.
+\item The optimal scale gives information on linear vs nonlinear dependency.
+\item It can be used in a variety of applications to replace the Pearson's correlation.
 \end{itemize}
-\pause
-\medskip
-They made \Mgc~advantageous in theory and practice.\\
 %\pause
 %\medskip
 %In this talk we went over the tip of the iceberg; there are a lot more fascinating details and applications in the manuscripts.
@@ -864,6 +883,32 @@ They made \Mgc~advantageous in theory and practice.\\
 %MGC shares the same intrinsic idea as in nonlinear embedding, random forest, multiple kernel learning, deep learning.
 \end{frame}
 
+\begin{frame}{Some Recent Advances in Computation}
+In practice:
+\pause
+\medskip
+\medskip
+
+1. Distance correlation and MGC can now be tested without resorting to permutation (similar to Pearson's t-test).
+\pause
+\medskip
+\medskip
+
+2. When $p=q=1$ and using Euclidean distance, there is a special fast implementation of distance correlation. The running time becomes $O(n \log n)$ and storage requirement becomes $O(n)$, making it ideal and scalable to millions and billions of observations. (less than $10$ seconds for $1$ million observations on a standard PC using Matlab)
+\pause
+\medskip
+\medskip
+
+Thus when $n$ is small (say less than a few thousands), \Mgc~is the better choice; whereas distance correlation can better handle extremely large data.
+\end{frame}
+
+\begin{frame}{Open Source Packages}
+Python package in \url{https://github.com/neurodata/mgcpy/} and forthcoming in scikit-learn\\
+\bigskip
+R package in \url{https://github.com/neurodata/MGC/} and CRAN\\
+\bigskip
+Matlab code \url{https://github.com/neurodata/mgc-matlab}
+\end{frame}
 %\begin{frame}{Current Works}
 %\pause
 %\begin{itemize}[<+->]
@@ -1164,18 +1209,18 @@ They made \Mgc~advantageous in theory and practice.\\
 \small
 
 1. \textcolor{UniOrange}{C. Shen}, C. E. Priebe, and J. T. Vogelstein, ``From distance correlation to the
-multiscale graph correlation," Journal of the American Statistical Association, 2018, \textit{https://arxiv.org/abs/1710.09768}.\\
+multiscale graph correlation," Journal of the American Statistical Association, 2019.\\
 \bigskip
 2. J. T. Vogelstein, E. Bridgeford, Q. Wang, C. E. Priebe, M. Maggioni, and \textcolor{UniOrange}{C. Shen},
-``Discovering and Deciphering Relationships Across Disparate Data Modalities," \textit{https://arxiv.org/abs/1609.05148}.\\
+``Discovering and Deciphering Relationships Across Disparate Data Modalities," eLife, 2019.\\
 \bigskip
 3. Y. Lee, \textcolor{UniOrange}{C. Shen}, and J. T. Vogelstein, ``Network dependence testing via diffusion
-maps and distance-based correlations," \textit{https://arxiv.org/abs/1703.10136}.\\
+maps and distance-based correlations," Biometrika, 2019.\\
 \bigskip
 4. S. Wang, \textcolor{UniOrange}{C. Shen}, A. Badea, C. E. Priebe, and J. T. Vogelstein, ``Signal
-subgraph estimation via iterative vertex screening," \textit{https://arxiv.org/abs/1801.07683}.\\
+subgraph estimation via iterative vertex screening," under review.\\
 \bigskip
-5. \textcolor{UniOrange}{C. Shen} and J. T. Vogelstein, ``The Exact Equivalence of Distance and Kernel Methods for Hypothesis Testing," \textit{https://arxiv.org/abs/1806.05514}.\\
+5. \textcolor{UniOrange}{C. Shen} and J. T. Vogelstein, ``The Exact Equivalence of Distance and Kernel Methods for Hypothesis Testing," under review.\\
 \if1\blind
 {
 \bigskip
