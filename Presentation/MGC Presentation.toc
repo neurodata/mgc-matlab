@@ -1,5 +1,5 @@
 \beamer@sectionintoc {1}{Motivation}{3}{0}{1}
 \beamer@sectionintoc {2}{Methodology}{25}{0}{2}
-\beamer@sectionintoc {3}{Theoretical Properties}{69}{0}{3}
-\beamer@sectionintoc {4}{Simulations and Experiments}{102}{0}{4}
-\beamer@sectionintoc {5}{Summary}{118}{0}{5}
+\beamer@sectionintoc {3}{Theoretical Properties}{68}{0}{3}
+\beamer@sectionintoc {4}{Simulations and Experiments}{101}{0}{4}
+\beamer@sectionintoc {5}{Summary}{117}{0}{5}

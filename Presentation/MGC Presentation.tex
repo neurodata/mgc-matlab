@@ -47,11 +47,11 @@
 \newcommand{\GG}{c}
 \newcommand{\E}{\hat{E}}
 
-\definecolor{UniBlue}{RGB}{0,26,56}
-\definecolor{UniOrange}{RGB}{253,185,19}
-\definecolor{UniTitle}{RGB}{192,192,192}
-\definecolor{UniText}{RGB}{200,200,200}
-\definecolor{OutCirc}{RGB}{185,224,247}
+\definecolor{UniBlue}{RGB}{250,250,250}%{0,26,56}
+\definecolor{UniOrange}{RGB}{0,26,56}%{253,185,19}
+\definecolor{UniTitle}{RGB}{0,0,0}%{192,192,192}
+\definecolor{UniText}{RGB}{0,0,0}%{200,200,200}
+\definecolor{OutCirc}{RGB}{125,154,197}%{185,224,247}
 \setbeamerfont{title}{size=\LARGE}
 \setbeamerfont{section title}{size=\Huge}
 \setbeamercolor{title}{fg=UniTitle}
@@ -472,6 +472,7 @@ On a standard PC with Matlab, testing $n=1000$ takes about $1$ minutes.
             >=stealth,
          every node/.append style={align=left}]
 			\node (source) at (0,0)[]{\includegraphics[width=.22\textwidth]{linear.png}};
+			\node (source2)[below=of source]{\includegraphics[width=.22\textwidth]{spiral.png}};
 			\pause
 \node (kaela)[right=of source]
     {\includegraphics[width=.28\textwidth]{Fig1B.png}};
@@ -482,8 +483,6 @@ On a standard PC with Matlab, testing $n=1000$ takes about $1$ minutes.
 	
 	\pause
 
-			\node (source2)[below=of source]{\includegraphics[width=.22\textwidth]{spiral.png}};
-			\pause
 \node (kaela2)[right=of source2]
     {\includegraphics[width=.28\textwidth]{Fig8B.png}};
 \draw[outpt](source2)--(kaela2);

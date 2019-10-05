@@ -1,0 +1,191 @@
+\documentclass{beamer}
+\mode<presentation> {
+\usetheme{Madrid}
+}
+
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{enumerate}
+\usepackage{graphicx} % Allows including images
+\usepackage{color}
+\usepackage{url}
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{caption}
+\usepackage{algorithm} 
+\usepackage{algpseudocode}
+
+%\newcommand{\Real}{\mathbb{R}}
+\newcommand{\GG}{c}
+%\newcommand{\G}{C}
+\newcommand{\E}{\hat{E}}
+\newcommand{\expo}{e}
+%\usepackage[style=verbose, backend=bibtex,maxcitenames=4]{biblatex}
+%\addbibresource{references.bib}
+%{\footnotesize
+%\bibliography{references}}
+
+%%change footnotecite
+%\renewcommand*{\thefootnote}{[\arabic{footnote}]}
+%\makeatletter
+%% Remove superscript for footnotemark
+%\def\@makefnmark{\hbox{{\normalfont\@thefnmark}}}
+%% Allow space to precede the footnote
+%\usepackage{etoolbox}
+%\patchcmd{\blx@mkbibfootnote}{\unspace}{}{}
+%\makeatother
+\usepackage{bbm}
+%\usepackage{natbib} 
+\setbeamertemplate{bibliography item}{}
+\setbeamertemplate{theorems}[numbered]
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}{Corollary}
+\newtheorem*{defi*}{Definition}
+\newcommand{\G}{c}
+\providecommand{\mb}[1]{\boldsymbol{#1}}
+\providecommand{\sct}[1]{{\normalfont\textsc{#1}}}
+\providecommand{\mt}[1]{\widetilde{#1}}
+\newcommand{\Real}{\mathbb{R}}
+\newcommand{\Mgc}{\textbf{\sct{Mgc}}}
+\newcommand{\mbx}{\ensuremath{\mb{x}}}
+\newcommand{\mby}{\ensuremath{\mb{y}}}
+
+\title[]{Weekly Slides} 
+
+\author{Cencheng Shen} % Your name
+\institute[] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+%\textit{Joint Work with Joshua T. Vogelstein \& Mauro Maggioni \& Carey E. Priebe} \\
+%\medskip
+%\medskip
+%\medskip
+%Department of Statistics \\
+%Temple University \\  % Your institution for the title page
+%https://github.com/jovo/MGC
+}
+%\date{August, 2016} % Date, can be changed to a custom date
+
+%\AtBeginSection{\frame{\sectionpage}}
+
+\begin{document}
+\bibliographystyle{ieeetr}
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+%1. Intro; 2. it is linear regression and classification; 3. its origin, and why we start investigation; 4. explain title
+
+%\begin{frame}
+%\frametitle{Overview} % Table of contents slide, comment this block out to remove it
+%\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+%\end{frame}
+
+\begin{frame}{Last Week's Targets}
+\begin{itemize}
+\item MNT: keep on iterate the proofs \& simulations til re-sub: 11/8?
+\item Go over vertex screening again for submission at 11/8-15?
+\item Miscellaneous: exam of my class, a few job applications and letter check, mgc repo edit readme. 
+%\item Do Pitman RE for dcorr vs mgc vs pearson?
+%\item Theoretically formalize mgc stat (or reduced rank one) for simplest two-class scenario.
+%\item Write-out effect size for vertex screening.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Last Week's Achieved}
+\begin{itemize}
+\item MNT: finalized my iteration on sims and proofs. Only one more figure and appeal letter check remains.
+\item Went over vertex screening simulations and proofs.
+\item Prepared exam of my class; finished job applications and letters; Eric done mgc repo. 
+%\item Do Pitman RE for dcorr vs mgc vs pearson?
+%\item Theoretically formalize mgc stat (or reduced rank one) for simplest two-class scenario.
+%\item Write-out effect size for vertex screening.
+\end{itemize}
+\end{frame}
+
+%\begin{frame}{Paper Organization}
+%\begin{itemize}
+%\item Introduction to testing independence 
+%\item Review of global / local dcorr, oracle / sample mgc, optimal scale and running time.
+%\item Population form (in integral and expectation) of local dcorr;
+%\item Centering and ranking lemma of unbiased local dcorr;
+%\item Convergence rate of each local dcorr in $O(1/n)$;
+%\item Consistency of sample mgc;
+%\item Monotone relationship implies global optimal scale;
+%\item Same $20$ simulations with HSIC added;
+%\item real data experiment (any simplex experiment we are supposed to do can go here??)
+%\end{itemize}
+%\end{frame}
+
+%\begin{frame}{MGC population version}
+%Assume $\tilde{A}$ and $\tilde{B}$ are the distance matrices of $X$ and $Y$, $A$ and $B$ are the center-ed distances.\\
+
+%Denote $f_{\cdot}$ as the empirical / population characteristic functions, e.g., $f_{x_{j}}=\exp^{itx_{j}}$, $f_{x}^{n}=\frac{1}{n}\sum_{j=1}^{n}\exp^{itx_{j}}$, $f_{x}=E(\exp^{itx})$.
+%\end{frame}
+
+%\begin{frame}{MGC population version}
+%\begin{thm}
+%At the global scale $(n,n)$, the distance product satisfies:
+%\begin{align*}
+%				C_{ij}^{nn} &= A_{ij}B_{ij} = (\tilde{A}_{ij}-\tilde{A}_{\cdot j}) (\tilde{B}_{ij}-\tilde{B}_{i \cdot}) = \int  (f_{x_{j}y_{j}}-f_{x_{j}}f_{y}^{n})( \overline{f_{x_{i}y_{i}}} - \overline{f_{x}^{n}}\overline{f_{y_{i}}}) dw,
+	%		\end{align*}
+	%		it follows that
+%\begin{align*}
+	%			\frac{1}{n}\sum_{i=1}^{n} C_{ij}^{nn}= \int  (f_{x_{j}y_{j}}-f_{x_{j}}f_{y}^{n})( \overline{f_{xy}^{n}} - %\overline{f_{x}^{n}}\overline{f_{y}^{n}}) dw,
+%\end{align*}
+%and
+%\begin{align*}
+%				dCov^{nn} &= \sum_{i,j=1}^{n}A_{ij}B_{ij} = \int |f_{xy}^{n}-f_{x}^{n} f_{y}^{n} |^{2} dw \rightarrow   \int |f_{xy}-f_{x}f_{y}|^{2} dw.
+			%\end{align*}
+%\end{thm}
+%\end{frame}
+
+%\begin{frame}{MGC population version}
+%\begin{thm}
+%At each local scale $(k,l)$, we have 
+%\begin{align*}
+	%			C_{ij}^{kl} &= A_{ij}B_{ij} \mb{I}(\tilde{A}_{ij}< \epsilon_{x_{j}}) \mb{I}(\tilde{B}_{ij}< \epsilon_{y_{j}}) \\
+		%		&= \int  (f_{x_{j}y_{j}}-f_{x_{j}}f_{y}^{n})( \overline{f_{x_{i}y_{i}}} - \overline{f_{x}^{n}}\overline{f_{y_{i}}}) \mb{I}(|f_{x_{i}}-f_{x_{j}}|< \epsilon_{x_{j}}) \mb{I}(|f_{y_{i}}-f_{y_{j}}|< \epsilon_{y_{j}})  dw.
+			%\end{align*}
+%\end{thm}
+
+%Q: can we make $\sum_{i,j}C_{ij}^{kl}$ into a clean form just like $\sum_{i,j}C_{ij}^{nn}$?
+%\end{frame}
+
+%\begin{frame}{MGC population version}
+%\begin{thm}
+%We have $dCov^{kl}(X,Y) \rightarrow dCov^{kl}(x,y)$ for all $(k,l)$.
+%\end{thm}
+
+%\begin{cor}
+%Under the null, we have $dCov^{kl}(X,Y) \rightarrow dCov^{kl}(x,y) = 0$ for all $(k,l)$.
+%\end{cor}
+%\end{frame}
+
+\begin{frame}{This Week}
+\begin{itemize}
+%\item Submitted MGC2.
+%\item Solicited SIMPLEX report. 
+\item MNT: finalize appeal letter and re-submit?
+\item Vertex screening: finalize experiment and interpretation, arxiv and submit?
+\item Read random forest and think about consistency.
+%\item Prepared research / teaching statement, solicit letters from jovo/cep/def.
+%\item Do Pitman RE for dcorr vs mgc vs pearson?
+%\item Theoretically formalize mgc stat (or reduced rank one) for simplest two-class scenario.
+%\item Write-out effect size for vertex screening.
+\end{itemize}
+\end{frame}
+
+
+%\end{frame}
+%\begin{frame}[allowframebreaks]
+
+%\frametitle{References}
+%\tiny
+%\bibliographystyle{ieeetr}
+%\bibliography{MGCbib}
+
+%\end{frame}
+
+%------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 

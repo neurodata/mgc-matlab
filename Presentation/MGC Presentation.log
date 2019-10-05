@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6210 64-bit) (preloaded format=pdflatex 2017.4.19)  30 SEP 2019 12:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6210 64-bit) (preloaded format=pdflatex 2017.4.19)  5 OCT 2019 17:21
 entering extended mode
 **"./MGC Presentation.tex"
 ("MGC Presentation.tex"
@@ -1245,82 +1245,82 @@ Overfull \vbox (3.12741pt too high) detected at line 307
 ] <linear.png, id=903, 144.54pt x 141.02687pt>
 File: linear.png Graphic file (type png)
  <use linear.png>
-Package pdftex.def Info: linear.png used on input line 495.
+Package pdftex.def Info: linear.png used on input line 494.
 (pdftex.def)             Requested size: 75.30537pt x 73.47426pt.
 
-<Fig1B.png, id=904, 102.1416pt x 76.1244pt>
-File: Fig1B.png Graphic file (type png)
- <use Fig1B.png>
-Package pdftex.def Info: Fig1B.png used on input line 495.
-(pdftex.def)             Requested size: 95.84225pt x 71.42915pt.
- <spiral.png, id=906, 147.04938pt x 135.00438pt>
+<spiral.png, id=904, 147.04938pt x 135.00438pt>
 File: spiral.png Graphic file (type png)
-
-<use spiral.png>
-Package pdftex.def Info: spiral.png used on input line 495.
+ <use spiral.png>
+Package pdftex.def Info: spiral.png used on input line 494.
 (pdftex.def)             Requested size: 75.30537pt x 69.13765pt.
+ <Fig1B.png, id=905, 102.1416pt x 76.1244pt>
+File: Fig1B.png Graphic file (type png)
+
+<use Fig1B.png>
+Package pdftex.def Info: Fig1B.png used on input line 494.
+(pdftex.def)             Requested size: 95.84225pt x 71.42915pt.
  <Fig8B.png, id=907, 99.4917pt x 73.4745pt>
 File: Fig8B.png Graphic file (type png)
  <use Fig8B.png>
-Package pdftex.def Info: Fig8B.png used on input line 495.
+Package pdftex.def Info: Fig8B.png used on input line 494.
 (pdftex.def)             Requested size: 95.84225pt x 70.78358pt.
  [59
 
- <./linear.png> <./Fig1B.png> <./spiral.png> <./Fig8B.png>]
+ <./linear.png> <./spiral.png> <./Fig1B.png> <./Fig8B.png>]
 File: linear.png Graphic file (type png)
  <use linear.png>
-Package pdftex.def Info: linear.png used on input line 495.
+Package pdftex.def Info: linear.png used on input line 494.
 (pdftex.def)             Requested size: 75.30537pt x 73.47426pt.
-File: Fig1B.png Graphic file (type png)
- <use Fig1B.png>
-Package pdftex.def Info: Fig1B.png used on input line 495.
-(pdftex.def)             Requested size: 95.84225pt x 71.42915pt.
 File: spiral.png Graphic file (type png)
  <use spiral.png>
-Package pdftex.def Info: spiral.png used on input line 495.
+Package pdftex.def Info: spiral.png used on input line 494.
 (pdftex.def)             Requested size: 75.30537pt x 69.13765pt.
+File: Fig1B.png Graphic file (type png)
+ <use Fig1B.png>
+Package pdftex.def Info: Fig1B.png used on input line 494.
+(pdftex.def)             Requested size: 95.84225pt x 71.42915pt.
 File: Fig8B.png Graphic file (type png)
  <use Fig8B.png>
-Package pdftex.def Info: Fig8B.png used on input line 495.
+Package pdftex.def Info: Fig8B.png used on input line 494.
 (pdftex.def)             Requested size: 95.84225pt x 70.78358pt.
  [60
 
 ]
 File: linear.png Graphic file (type png)
  <use linear.png>
-Package pdftex.def Info: linear.png used on input line 495.
+Package pdftex.def Info: linear.png used on input line 494.
 (pdftex.def)             Requested size: 75.30537pt x 73.47426pt.
-File: Fig1B.png Graphic file (type png)
-
-<use Fig1B.png>
-Package pdftex.def Info: Fig1B.png used on input line 495.
-(pdftex.def)             Requested size: 95.84225pt x 71.42915pt.
 File: spiral.png Graphic file (type png)
- <use spiral.png>
-Package pdftex.def Info: spiral.png used on input line 495.
+
+<use spiral.png>
+Package pdftex.def Info: spiral.png used on input line 494.
 (pdftex.def)             Requested size: 75.30537pt x 69.13765pt.
+File: Fig1B.png Graphic file (type png)
+ <use Fig1B.png>
+Package pdftex.def Info: Fig1B.png used on input line 494.
+(pdftex.def)             Requested size: 95.84225pt x 71.42915pt.
 File: Fig8B.png Graphic file (type png)
  <use Fig8B.png>
-Package pdftex.def Info: Fig8B.png used on input line 495.
+Package pdftex.def Info: Fig8B.png used on input line 494.
 (pdftex.def)             Requested size: 95.84225pt x 70.78358pt.
  [61
 
 ]
 File: linear.png Graphic file (type png)
  <use linear.png>
-Package pdftex.def Info: linear.png used on input line 495.
+Package pdftex.def Info: linear.png used on input line 494.
 (pdftex.def)             Requested size: 75.30537pt x 73.47426pt.
-File: Fig1B.png Graphic file (type png)
- <use Fig1B.png>
-Package pdftex.def Info: Fig1B.png used on input line 495.
-(pdftex.def)             Requested size: 95.84225pt x 71.42915pt.
 File: spiral.png Graphic file (type png)
  <use spiral.png>
-Package pdftex.def Info: spiral.png used on input line 495.
+Package pdftex.def Info: spiral.png used on input line 494.
 (pdftex.def)             Requested size: 75.30537pt x 69.13765pt.
+File: Fig1B.png Graphic file (type png)
+ <use Fig1B.png>
+Package pdftex.def Info: Fig1B.png used on input line 494.
+(pdftex.def)             Requested size: 95.84225pt x 71.42915pt.
 File: Fig8B.png Graphic file (type png)
  <use Fig8B.png>
-Package pdftex.def Info: Fig8B.png used on input line 495.
+Package pdftex.def Info: Fig8B.png used on input line 494.
 (pdftex.def)             Requested size: 95.84225pt x 70.78358pt.
 
 [62
@@ -1328,65 +1328,47 @@ Package pdftex.def Info: Fig8B.png used on input line 495.
 ]
 File: linear.png Graphic file (type png)
  <use linear.png>
-Package pdftex.def Info: linear.png used on input line 495.
+Package pdftex.def Info: linear.png used on input line 494.
 (pdftex.def)             Requested size: 75.30537pt x 73.47426pt.
-File: Fig1B.png Graphic file (type png)
- <use Fig1B.png>
-Package pdftex.def Info: Fig1B.png used on input line 495.
-(pdftex.def)             Requested size: 95.84225pt x 71.42915pt.
 File: spiral.png Graphic file (type png)
  <use spiral.png>
-Package pdftex.def Info: spiral.png used on input line 495.
+Package pdftex.def Info: spiral.png used on input line 494.
 (pdftex.def)             Requested size: 75.30537pt x 69.13765pt.
+File: Fig1B.png Graphic file (type png)
+ <use Fig1B.png>
+Package pdftex.def Info: Fig1B.png used on input line 494.
+(pdftex.def)             Requested size: 95.84225pt x 71.42915pt.
 File: Fig8B.png Graphic file (type png)
  <use Fig8B.png>
-Package pdftex.def Info: Fig8B.png used on input line 495.
+Package pdftex.def Info: Fig8B.png used on input line 494.
 (pdftex.def)             Requested size: 95.84225pt x 70.78358pt.
  [63
 
 ]
 File: linear.png Graphic file (type png)
  <use linear.png>
-Package pdftex.def Info: linear.png used on input line 495.
+Package pdftex.def Info: linear.png used on input line 494.
 (pdftex.def)             Requested size: 75.30537pt x 73.47426pt.
-File: Fig1B.png Graphic file (type png)
- <use Fig1B.png>
-Package pdftex.def Info: Fig1B.png used on input line 495.
-(pdftex.def)             Requested size: 95.84225pt x 71.42915pt.
 File: spiral.png Graphic file (type png)
-
-<use spiral.png>
-Package pdftex.def Info: spiral.png used on input line 495.
+ <use spiral.png>
+Package pdftex.def Info: spiral.png used on input line 494.
 (pdftex.def)             Requested size: 75.30537pt x 69.13765pt.
+File: Fig1B.png Graphic file (type png)
+
+<use Fig1B.png>
+Package pdftex.def Info: Fig1B.png used on input line 494.
+(pdftex.def)             Requested size: 95.84225pt x 71.42915pt.
 File: Fig8B.png Graphic file (type png)
  <use Fig8B.png>
-Package pdftex.def Info: Fig8B.png used on input line 495.
+Package pdftex.def Info: Fig8B.png used on input line 494.
 (pdftex.def)             Requested size: 95.84225pt x 70.78358pt.
  [64
 
-]
-File: linear.png Graphic file (type png)
- <use linear.png>
-Package pdftex.def Info: linear.png used on input line 495.
-(pdftex.def)             Requested size: 75.30537pt x 73.47426pt.
-File: Fig1B.png Graphic file (type png)
- <use Fig1B.png>
-Package pdftex.def Info: Fig1B.png used on input line 495.
-(pdftex.def)             Requested size: 95.84225pt x 71.42915pt.
-File: spiral.png Graphic file (type png)
- <use spiral.png>
-Package pdftex.def Info: spiral.png used on input line 495.
-(pdftex.def)             Requested size: 75.30537pt x 69.13765pt.
-File: Fig8B.png Graphic file (type png)
- <use Fig8B.png>
-Package pdftex.def Info: Fig8B.png used on input line 495.
-(pdftex.def)             Requested size: 95.84225pt x 70.78358pt.
- [65
+] [65
 
 ] [66
 
-]
-[67
+] [67
 
 ] [68
 
@@ -1414,7 +1396,8 @@ Package pdftex.def Info: Fig8B.png used on input line 495.
 
 ] [80
 
-] [81
+]
+[81
 
 ] [82
 
@@ -1432,8 +1415,7 @@ Package pdftex.def Info: Fig8B.png used on input line 495.
 
 ] [89
 
-]
-[90
+] [90
 
 ] [91
 
@@ -1455,67 +1437,67 @@ Package pdftex.def Info: Fig8B.png used on input line 495.
 
 ] [100
 
-] [101
-
 ]
-Overfull \vbox (28.661pt too high) detected at line 663
+Overfull \vbox (28.661pt too high) detected at line 662
+ []
+
+[101
+
+] <FigSimVisual2.pdf, id=1531, 1156.32pt x 722.7pt>
+File: FigSimVisual2.pdf Graphic file (type pdf)
+ <use FigSimVisual2.pdf>
+Package pdftex.def Info: FigSimVisual2.pdf used on input line 671.
+(pdftex.def)             Requested size: 342.2953pt x 213.93349pt.
+
+Overfull \vbox (4.81483pt too high) detected at line 671
  []
 
 [102
 
-] <FigSimVisual2.pdf, id=1545, 1156.32pt x 722.7pt>
+ <./FigSimVisual2.pdf>]
 File: FigSimVisual2.pdf Graphic file (type pdf)
  <use FigSimVisual2.pdf>
-Package pdftex.def Info: FigSimVisual2.pdf used on input line 672.
+Package pdftex.def Info: FigSimVisual2.pdf used on input line 671.
 (pdftex.def)             Requested size: 342.2953pt x 213.93349pt.
 
-Overfull \vbox (4.81483pt too high) detected at line 672
+Overfull \vbox (4.81483pt too high) detected at line 671
  []
 
 [103
 
- <./FigSimVisual2.pdf>]
-File: FigSimVisual2.pdf Graphic file (type pdf)
- <use FigSimVisual2.pdf>
-Package pdftex.def Info: FigSimVisual2.pdf used on input line 672.
-(pdftex.def)             Requested size: 342.2953pt x 213.93349pt.
+] <FigNoiseT1.pdf, id=1565, 578.16pt x 433.62pt>
+File: FigNoiseT1.pdf Graphic file (type pdf)
+ <use FigNoiseT1.pdf>
+Package pdftex.def Info: FigNoiseT1.pdf used on input line 693.
+(pdftex.def)             Requested size: 171.14764pt x 138.5892pt.
 
-Overfull \vbox (4.81483pt too high) detected at line 672
+<FigNoiseT6.pdf, id=1567, 578.16pt x 433.62pt>
+File: FigNoiseT6.pdf Graphic file (type pdf)
+ <use FigNoiseT6.pdf>
+Package pdftex.def Info: FigNoiseT6.pdf used on input line 693.
+(pdftex.def)             Requested size: 171.14764pt x 138.5892pt.
+
+Overfull \vbox (23.83653pt too high) detected at line 693
  []
 
 [104
 
-] <FigNoiseT1.pdf, id=1579, 578.16pt x 433.62pt>
+ <./FigNoiseT1.pdf> <./FigNoiseT6.pdf>]
 File: FigNoiseT1.pdf Graphic file (type pdf)
  <use FigNoiseT1.pdf>
-Package pdftex.def Info: FigNoiseT1.pdf used on input line 694.
+Package pdftex.def Info: FigNoiseT1.pdf used on input line 693.
 (pdftex.def)             Requested size: 171.14764pt x 138.5892pt.
-
-<FigNoiseT6.pdf, id=1581, 578.16pt x 433.62pt>
 File: FigNoiseT6.pdf Graphic file (type pdf)
  <use FigNoiseT6.pdf>
-Package pdftex.def Info: FigNoiseT6.pdf used on input line 694.
+Package pdftex.def Info: FigNoiseT6.pdf used on input line 693.
 (pdftex.def)             Requested size: 171.14764pt x 138.5892pt.
 
-Overfull \vbox (23.83653pt too high) detected at line 694
+Overfull \vbox (23.83653pt too high) detected at line 693
  []
 
 [105
 
- <./FigNoiseT1.pdf> <./FigNoiseT6.pdf>]
-File: FigNoiseT1.pdf Graphic file (type pdf)
- <use FigNoiseT1.pdf>
-Package pdftex.def Info: FigNoiseT1.pdf used on input line 694.
-(pdftex.def)             Requested size: 171.14764pt x 138.5892pt.
-File: FigNoiseT6.pdf Graphic file (type pdf)
- <use FigNoiseT6.pdf>
-Package pdftex.def Info: FigNoiseT6.pdf used on input line 694.
-(pdftex.def)             Requested size: 171.14764pt x 138.5892pt.
-
-Overfull \vbox (23.83653pt too high) detected at line 694
- []
-
-[106
+] [106
 
 ] [107
 
@@ -1525,14 +1507,18 @@ Overfull \vbox (23.83653pt too high) detected at line 694
 
 ] [110
 
-] [111
-
 ]
-Overfull \hbox (0.28534pt too wide) in paragraph at lines 787--787
+Overfull \hbox (0.28534pt too wide) in paragraph at lines 786--786
 [][]  
  []
 
-[112
+[111
+
+]
+Missing character: There is no â in font cmss10!
+Missing character: There is no € in font cmss10!
+Missing character: There is no ™ in font cmss10!
+ [112
 
 ]
 Missing character: There is no â in font cmss10!
@@ -1540,50 +1526,46 @@ Missing character: There is no € in font cmss10!
 Missing character: There is no ™ in font cmss10!
  [113
 
-]
-Missing character: There is no â in font cmss10!
-Missing character: There is no € in font cmss10!
-Missing character: There is no ™ in font cmss10!
- [114
-
-] <brain0.jpg, id=1740, 576.1525pt x 458.71375pt>
+] <brain0.jpg, id=1726, 576.1525pt x 458.71375pt>
 File: brain0.jpg Graphic file (type jpg)
  <use brain0.jpg>
-Package pdftex.def Info: brain0.jpg used on input line 820.
+Package pdftex.def Info: brain0.jpg used on input line 819.
 (pdftex.def)             Requested size: 310.76122pt x 247.42876pt.
 
-Overfull \vbox (5.9726pt too high) detected at line 820
+Overfull \vbox (5.9726pt too high) detected at line 819
  []
 
-[115
+[114
 
- <./brain0.jpg>] <brain.png, id=1757, 803.0pt x 853.1875pt>
+ <./brain0.jpg>] <brain.png, id=1742, 803.0pt x 853.1875pt>
 File: brain.png Graphic file (type png)
  <use brain.png>
-Package pdftex.def Info: brain.png used on input line 828.
+Package pdftex.def Info: brain.png used on input line 827.
 (pdftex.def)             Requested size: 252.94499pt x 268.75548pt.
 pdfTeX warning (ext4): destination with the same identifier (name{fig:study}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.828 \end{frame}
+l.827 \end{frame}
                  
-Overfull \vbox (27.29932pt too high) detected at line 828
+Overfull \vbox (27.29932pt too high) detected at line 827
  []
 
-[116
+[115
 
- <./brain.png>] <batch_sex_cor_error.png, id=1772, 768.8725pt x 451.6875pt>
+ <./brain.png>] <batch_sex_cor_error.png, id=1758, 768.8725pt x 451.6875pt>
 File: batch_sex_cor_error.png Graphic file (type png)
  <use batch_sex_cor_error.png>
-Package pdftex.def Info: batch_sex_cor_error.png used on input line 837.
+Package pdftex.def Info: batch_sex_cor_error.png used on input line 836.
 (pdftex.def)             Requested size: 252.94499pt x 148.59555pt.
 pdfTeX warning (ext4): destination with the same identifier (name{fig:study}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.837 \end{frame}
-                  [117
+l.836 \end{frame}
+                  [116
 
- <./batch_sex_cor_error.png>] [118
+ <./batch_sex_cor_error.png>] [117
+
+] [118
 
 ] [119
 
@@ -1603,10 +1585,10 @@ l.837 \end{frame}
 
 ] [127
 
-] [128
-
 ]
-[129
+[128
+
+] [129
 
 ] [130
 
@@ -1632,8 +1614,6 @@ l.837 \end{frame}
 
 ] [141
 
-] [142
-
 ] ("MGC Presentation.bbl"
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
@@ -1648,11 +1628,11 @@ LaTeX Warning: Empty `thebibliography' environment on input line 3.
 \tf@snm=\write8
 \openout8 = `"MGC Presentation.snm"'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1245.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1245.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1244.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1244.
  ("MGC Presentation.aux")
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1245.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1245.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1244.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1244.
 Package rerunfilecheck Info: File `"MGC Presentation".out' has not changed.
 (rerunfilecheck)             Checksum: 8BE4F2BA647221308A9E075F66BF3CE8;257.
 
@@ -1668,9 +1648,9 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 35067 strings out of 493333
- 842958 string characters out of 3140912
- 1068445 words of memory out of 3000000
+ 35065 strings out of 493333
+ 842932 string characters out of 3140912
+ 1066514 words of memory out of 3000000
  37571 multiletter control sequences out of 15000+200000
  28084 words of font info for 86 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1690,9 +1670,9 @@ msy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/
 amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX/fonts/
 type1/public/amsfonts/cm/cmtt9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Program F
 iles/MiKTeX/fonts/type1/public/tex-gyre/qtmb.pfb>
-Output written on "MGC Presentation.pdf" (142 pages, 1728667 bytes).
+Output written on "MGC Presentation.pdf" (141 pages, 1720211 bytes).
 PDF statistics:
- 2289 PDF objects out of 2487 (max. 8388607)
- 294 named destinations out of 1000 (max. 500000)
+ 2275 PDF objects out of 2487 (max. 8388607)
+ 292 named destinations out of 1000 (max. 500000)
  193 words of extra memory for PDF output out of 10000 (max. 10000000)
 
