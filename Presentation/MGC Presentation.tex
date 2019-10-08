@@ -260,7 +260,7 @@ To that end, we propose the \textbf{multiscale graph correlation} in [\textit{Sh
             >=stealth,
          every node/.append style={align=left}]
 				\node (source) at (0,0){$(\mathcal{X}_{n},\mathcal{Y}_{n})$};
-				\node (source2)at (3,3){$d(\cdot,\cdot): \mathbb{R}^{p+q} \times \mathbb{R}^{p+q} \rightarrow \mathbb{R}$};
+				\node (source2)at (3,3){$d(\cdot,\cdot)$};
 				\pause
          \node (kaela)[right=0.8cm of source]{\begin{tabular}{@{}c}Computing \\ Distances \\ \& Centering: \\ $A, B \in \mathbb{R}^{n \times n}$\end{tabular}};
 				\draw[outpt](source)--(kaela);
@@ -307,7 +307,7 @@ To that end, we propose the \textbf{multiscale graph correlation} in [\textit{Sh
 \end{frame}
 
 \begin{frame}{Computing Distance and Centering}
-\textbf{Input:} $\mathcal{X}_{n}=[x_{1},\ldots,x_{n}]$ as the data matrix with each column representing one sample observation, and similarly $\mathcal{Y}_{n}$. A distance or kernel function $d(\cdot,\cdot): \mathbb{R}^{p+q} \times \mathbb{R}^{p+q} \rightarrow \mathbb{R}$, by default the Euclidean distance.\\
+\textbf{Input:} $\mathcal{X}_{n}=[x_{1},\ldots,x_{n}]$ as the data matrix with each column representing one sample observation, and similarly $\mathcal{Y}_{n}$. A distance or kernel function $d(\cdot,\cdot)$, by default the Euclidean distance.\\
 \pause
 \medskip
 \textbf{Distance Computation: } Let $\tilde{A}$ be the $n \times n$ Euclidean distance matrices of $\mathcal{X}_{n}$:
