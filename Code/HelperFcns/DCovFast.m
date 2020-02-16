@@ -1,21 +1,27 @@
-%% Fast Dcov statistic that runs in O(nlog(n)), based on:
-%% A. Chaudhuri and W. Hu, “A fast algorithm for computing distance correlation,” https://arxiv.org/abs/1810.11332, 2018
-%% Statistics and Computing, vol. 28, no. 1, pp. 113–130, 2018.
-%% Note that it only works for Euclidean distance and univariate data.
+%% Fast Distance Covariance that runs in O(nlog(n)) for 1D data in Euclidean distance, based on:
+%% A. Chaudhuri and W. Hu, “A fast algorithm for computing distance correlation";
+%% C. Shen and C. Priebe and J. Vogelstein, "From Distance Correlation to Multiscale Graph Correlation";
+%% C. Shen and J. Vogelstein, "The Chi-Square Test of Distance Correlation".
 %%
 %% @param x is an n*1 data matrix;
 %% @param y is an n*1 data matrix;
-%% @return the distance covariance (which is not normalized into the correlation)
+%% @param option is a string that specifies the centering, including 'mgc'(default), 'unbiased', 'biased' and 'simple'.
+%% @return the distance covariance (note that this is an un-normalized covariance, see DCor.m for normalized correlation)
 %%
 %% @export
 %%
 
-function covsq=FastStatDCov(x,y)
-
+function covsq=DCovFast(x,y,option)
+if nargin < 3
+    option='mgc'; % default centering scheme
+end
 n=length(x);
+
+% sort the data
 [x,Index]=sort(x);
 y=y(Index);
 
+% compute term1-3
 si=cumsum(x);
 s=si(n);
 ax=(-(n-2):2:n).'.*x+(s-2*si);
@@ -83,11 +89,34 @@ s=si(n);
 by=zeros(n,1);
 by(idx(n:-1:1,r))=(-(n-2):2:n).'.*ySorted+(s-2*si);
 
-nsq=n*n;
-ncb=nsq*n;
-nq=ncb*n;
-term1=d/nsq;
-term2=2*(ax.'*by)/ncb;
-term3=sum(ax)*sum(by)/nq;
-covsq=term1+term3-term2;
-        
+term1=d;
+term2=(ax.'*by);
+term3=sum(ax)*sum(by);
+
+% assign weights based on different centering scheme
+switch option
+    case 'mgc' % almost unbiased transform utilized by mgc
+        n1=n*(n-1);
+        n2=n1*(n-1);
+        n3=n2*(n-1);
+        term3=term3-term2;
+    case 'unbiased' % unbiased dcor transform
+        n1=n*(n-3);
+        n2=n1*(n-2);
+        n3=n2*(n-1);
+    case 'biased' % biased dcor transform
+        n1=n*n;
+        n2=n1*n;
+        n3=n2*n;
+    case 'mantel' % almost unbiased transform utilized by mgc
+        n1=n*n;
+        n2=1;
+        n3=-n1*(n-1)^2*n/(n-2);
+        term2=0;
+    otherwise % default to mgc transform
+        n1=n*(n-1);
+        n2=n1*(n-1);
+        n3=n2*(n-1);
+        term3=term3-term2;
+end
+covsq=term1/n1-2*term2/n2+term3/n3;

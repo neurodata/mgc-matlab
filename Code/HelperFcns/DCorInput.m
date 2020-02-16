@@ -1,7 +1,7 @@
 %% Process the input into proper distance matrix or kernel induced distance matrix, depending on choice of the metric / kernel.
 %%
 %% @param X can be n*p data, n*n dissimilarity, or n*n similarity.
-%% @param optionMetric is a string that specifies which global correlation to compute, including 'dcor'(default),'hsic', and other variants.
+%% @param optionMetric is a string that specifies which metric to use, including 'euclidean'(default),'hsic', and other variants.
 %%
 %% @return X as the n by n processed distance matrix.
 %%
@@ -10,16 +10,12 @@
 
 function [X]=DCorInput(X,optionMetric)
 if nargin<2
-    optionMetric='euclidean';
+    optionMetric='euclidean';  % use euclidean distance by default
 end
-if size(X,1)==size(X,2) && sum(diag(X))==size(X,1) % similarity matrix
-    X=1-X/max(max(X));
-    return;
-end
-
-if size(X,1)==size(X,2) && sum(diag(X))==0
-    % dissimilarity matrix
-else
+[X,ind]=checkDist(X); % check whether it is a distance or kernel matrix
+if ind>0 % if the input is already a distance or kernel matrix
+    return; % return the distance or kernel induced distance matrix, 
+else % form the Euclidean distance matrix and proceed further
     X=squareform(pdist(X));
 end
 

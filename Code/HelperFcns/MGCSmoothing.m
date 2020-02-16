@@ -17,15 +17,15 @@ if nargin<4
     sz=min(m,n)-1;
 end
 if nargin<5
-    thres=2*min(m,n);
+    thres=max(m,n);
 end
 R=Thresholding(localCor,m,n,sz); % find a connected region of significant local correlations
-
+thres=size(localCor,1)*size(localCor,2);
 statMGC=localCor(end); % default sample mgc to local corr at maximal scale
 optimalScale=m*n; % default the optimal scale to global scale
 if (norm(R,'fro')~=0)
     % tau=0; % number of adjacent scales to smooth with
-    if sum(sum(R))>=ceil(0.02*max(m,n))*thres % proceed only when the region area is sufficiently large
+    if sum(sum(R))>=ceil(0.1*thres) % proceed only when the region area is sufficiently large
         tmp=max(localCor(R==1));
         [k,l]=find((localCor>=tmp)&(R==1)); % find all scales within R that maximize the local correlation
         if tmp >= statMGC
@@ -61,7 +61,7 @@ end
 %%
 function R=Thresholding(localCor,m,n,sz)
 thres=max(localCor(end),0);
-opt=1; 
+opt=3; 
 if opt==1 % A threshold is estimated based on normal distribution approximation from Szekely2013
     prt=1-0.02/sz; % percentile to consider as significant
     %thres=sqrt(sz*(sz-3)/2-1); % normal approximation, which is equivalent to beta approximation for n larger than 10
@@ -75,6 +75,11 @@ if opt==2
     thres=thres(thres<0); % all negative correlations
     thres=5*norm(thres,'fro')/sqrt(length(thres)); % 5 times the standard deviation of negative correlations
     thres=max(thres,localCor(end)); % Use the maximal of paratemetric and non-parametric thresholds
+end
+if opt==3
+    prt=0.99; % percentile to consider as significant
+    thres=(norminv(prt)^2-1)/sz;
+    thres=max(thres,localCor(end)); %
 end
 
 % Find the largest connected component of significant correlations

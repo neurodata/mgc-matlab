@@ -2,8 +2,8 @@
 %%
 %% @param X is an n*n distance matrix or a n*p data matrix;
 %% @param Y is an n*n distance matrix or a n*q data matrix;
-%% @param optionMetric is a string that specifies which global correlation to compute, including 'dcor'(default),'hsic', and other variants.
-%% @param optionCenter is a string that specifies how the distance matrices are centered, including 'mgc'(default), 'unbiased', 'biased' and 'simple'.
+%% @param optionMetric is a string that specifies which metric to use, including 'euclidean'(default),'hsic', and other variants.
+%% @param optionCenter is a string that specifies how the distance matrices are centered, including 'mgc'(default), 'unbiased', 'biased' and 'mantel'.
 %%
 %% @return A list contains the following output:
 %% @return corr consists of all local correlations within [-1,1] by double matrix index;
@@ -84,4 +84,4 @@ for l=1:nY-1
 end
 
 % normalize the covariance by the variances yields the local correlation
-covXY=(covXY-EX'*EY/n/(n));
+covXY=(covXY-EX'*EY/(n-1)/(n));
