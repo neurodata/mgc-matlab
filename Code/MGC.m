@@ -60,16 +60,16 @@ end
 function [corr, localCor, optimalScale,R]=MGCStat(X,Y,optionMetric,optionCenter,optionFast)
 localCor=MGCLocalCor(X,Y,optionMetric,optionCenter); % compute all localCor
 [m,n]=size(localCor);
-    corr=mean(mean(localCor(2:end,2:end)));
-    %corr=localCor(m,n);
-    optimalScale=m*n;
-    R=1;
-% if m==1 || n==1
-%     corr=localCor(end);
+%     corr=mean(mean(localCor(2:end,2:end)));
+%     %corr=localCor(m,n);
 %     optimalScale=m*n;
 %     R=1;
-% else
-%     % find the maximal within the significant region, return optimal scale and a connectec region of local correlations R
-%     [corr,optimalScale, R]=MGCSmoothing(localCor,m,n); 
-% end
+if m==1 || n==1
+    corr=localCor(end);
+    optimalScale=m*n;
+    R=1;
+else
+    % find the maximal within the significant region, return optimal scale and a connectec region of local correlations R
+    [corr,optimalScale, R]=MGCSmoothing(localCor,m,n); 
+end
 
