@@ -2,8 +2,8 @@ The code is the Matlab version for fast, powerful, and universally consistent in
 It implements Multiscale Graph Correlation and Distance Correlation for a number of metric and kernel choices (in particular, it also computes the Hilbert-Schmidt Independence Criterion)
 It is able to test independence, do k-sample testing, do partial test, and do feature screening. 
 
-The R version is available on CRAN and https://github.com/neurodata/mgc.
-The Python version is available on PyPi and https://github.com/neurodata/mgcpy.
+The R version is available on CRAN and https://github.com/neurodata/r-mgc.
+The Python version is available on PyPi and https://github.com/neurodata/hyppo.
 
 Author: Cencheng Shen, shenc@udel.edu
 
